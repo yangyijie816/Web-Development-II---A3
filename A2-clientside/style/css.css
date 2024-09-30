@@ -4,6 +4,7 @@
 body {
   padding: 0;
   margin: 0;
+  background-color: #fcfcfc;
 }
 ul,
 li,
@@ -30,7 +31,11 @@ a {
   transition-timing-function: ease-in-out;
 }
 .center {
-  width: 1536px;
+  width: 1400px;
+  margin: 0 auto;
+}
+.widthCenter {
+  width: 1200px;
   margin: 0 auto;
 }
 .header {
@@ -38,10 +43,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  background-color: white;
 }
 .logo {
   font-size: 24px;
   font-weight: 700;
+  cursor: pointer;
 }
 .menus {
   flex: 1;
@@ -52,15 +59,155 @@ a {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-size: 18px;
+  font-size: 16px;
 }
 .menus ul li a,
 .login a {
   color: #2c2b34;
+  font-weight: 700;
+}
+.menus ul li a:hover {
+  color: #bf1e2e;
 }
 .banner {
   width: 100%;
 }
 .img {
   width: 100%;
+}
+
+.list {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.listStyle {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row-gap: 3rem;
+  grid-column-gap: 3rem;
+  padding: 0 !important;
+}
+.listStyle .item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  width: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  padding-bottom: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+.card .image {
+  width: 100%;
+  position: relative;
+}
+.money {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(44, 43, 52, 0.6);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fcfcfc;
+  padding: 0 16px;
+}
+
+.card .info {
+  padding: 16px;
+}
+
+.card h4 {
+  font-size: 18px;
+  margin: 8px 0;
+  margin-top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.combination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-break: auto;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+.combination p {
+  margin: 0px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.card .about {
+  display: -webkit-box; /* 适用于WebKit浏览器 */
+  -webkit-box-orient: vertical; /* 垂直排列 */
+  -webkit-line-clamp: 3; /* 限制显示三行 */
+  overflow: hidden; /* 隐藏超出部分 */
+  text-overflow: ellipsis; /* 显示省略号 */
+  font-size: 12px;
+}
+
+.footer {
+  background-color: black;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 80px 0;
+  padding-bottom: 0;
+}
+.icon1 {
+  width: 40px;
+  height: 40px;
+}
+.icon2 {
+  width: 30px;
+  height: 30px;
+}
+
+.footer ul {
+  display: flex;
+  justify-content: space-around;
+}
+.footer ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+}
+
+.footer ul li > div:nth-child(1) {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.footer .icons2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer .icons2 > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-text {
+  padding-top: 80px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
