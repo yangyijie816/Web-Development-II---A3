@@ -12,8 +12,8 @@
       <div class="header">
         <div class="logo"><a href="./index.html">RiseTogether</a></div>
         <div class="menus">
-          <ul>
-            <li><a href="./index.html">Home</a></li>
+          <ul id="path">
+            <li><a href="./index.html" class="active">Home</a></li>
             <li><a href="./search.html">Crowdfunding</a></li>
           </ul>
         </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="list">
       <ul class="widthCenter listStyle">
-        <li class="item">
+        <li class="item" onclick="toDetails()">
           <div class="card">
             <div class="image">
               <img class="img" src="./image/img1.png" alt="" />
@@ -154,4 +154,5 @@
       </div>
     </div>
   </body>
+  <script src="./js/index.js"></script>
 </html>

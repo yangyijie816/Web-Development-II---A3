@@ -12,9 +12,9 @@
       <div class="header">
         <div class="logo"><a href="./index.html">RiseTogether</a></div>
         <div class="menus">
-          <ul>
+          <ul id="path">
             <li><a href="./index.html">Home</a></li>
-            <li><a href="./search.html">Crowdfunding</a></li>
+            <li><a href="./search.html" class="active">Crowdfunding</a></li>
           </ul>
         </div>
         <div class="login">
@@ -42,7 +42,7 @@
           <div></div>
         </div>
         <div class="button" onclick="search()">Search</div>
-        <div class="button" onclick="clear()">Clear</div>
+        <div class="button" onclick="clearCheckboxes()">Clear</div>
       </div>
     </div>
     <div class="list search">
@@ -172,4 +172,5 @@
       </div>
     </div>
   </body>
+  <script src="./js/index.js"></script>
 </html>
