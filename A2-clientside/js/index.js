@@ -1,9 +1,15 @@
 function search() {
-  console.log('search')
+  const organizer = document.getElementById('C').value
+  const city = document.getElementById('D').value
+  const categoryId = document.getElementById('E').value
+  getSearch({ organizer, city, categoryId })
 }
 
 function clearCheckboxes() {
-  console.log('clearCheckboxes')
+  document.getElementById('C').value = ''
+  document.getElementById('D').value = ''
+  document.getElementById('E').value = ''
+  getSearch({})
 }
 
 function toDetails(id) {
@@ -33,8 +39,13 @@ function template(data, index) {
                 <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
               </div>
               <div class="about">
-                What started as Defeat The Mandates, an historic idea to bring together the world's leading COVID-19 dissidents in the early days of the vaccine
-                mandates, and Rage Against The War Machine in the wake of the Ukrainian conflict, have become today's Rescue the Republic.
+               <p>Imagine the devastation of having your home and community torn apart by a hurricane. With several hurricanes expected this season, the 2024 Hurricane Relief Fund by GiveSendGo Charities is here to provide critical financial relief to those affected.</p>
+
+				<p>As part of our Care & Relief fund, 100% of your donation goes directly to those in need, with GiveSendGo.com covering all Stripe processing fees. All donations are tax-deductible and will be distributed as grants to campaigns hosted on GiveSendGo.com.</p>
+
+				<p>If you or someone you know has been impacted by these hurricanes, we encourage you to start a campaign on GiveSendGo.com and apply for a grant on our website GiveSendGo.org.</p>
+
+				<p>Your generous support can bring hope and relief to those facing this devastating reality. Join us in making a difference. Donate now to help hurricane victims rebuild their lives.</p>
               </div>
             </div>
           </div>
@@ -43,16 +54,6 @@ function template(data, index) {
 }
 
 function templateDetail(data) {
-  //   {
-  //     "FUNDRAISER_ID": 4,
-  //     "ORGANIZER": "David",
-  //     "CAPTION": "Feed the needy",
-  //     "ACTIVE": 1,
-  //     "TARGET_FUNDING": "4000.00",
-  //     "CURRENT_FUNDING": "2500.00",
-  //     "CITY": "Chicago",
-  //     "CATEGORY_NAME": "Health"
-  // }
   return `
 	<div class="widthCenter">
         <div class="left">
@@ -64,8 +65,13 @@ function templateDetail(data) {
             <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
           </div>
           <div class="about">
-            What started as Defeat The Mandates, an historic idea to bring together the world's leading COVID-19 dissidents in the early days of the vaccine
-            mandates, and Rage Against The War Machine in the wake of the Ukrainian conflict, have become today's Rescue the Republic.
+           <p>Imagine the devastation of having your home and community torn apart by a hurricane. With several hurricanes expected this season, the 2024 Hurricane Relief Fund by GiveSendGo Charities is here to provide critical financial relief to those affected.</p>
+
+				<p>As part of our Care & Relief fund, 100% of your donation goes directly to those in need, with GiveSendGo.com covering all Stripe processing fees. All donations are tax-deductible and will be distributed as grants to campaigns hosted on GiveSendGo.com.</p>
+
+				<p>If you or someone you know has been impacted by these hurricanes, we encourage you to start a campaign on GiveSendGo.com and apply for a grant on our website GiveSendGo.org.</p>
+
+				<p>Your generous support can bring hope and relief to those facing this devastating reality. Join us in making a difference. Donate now to help hurricane victims rebuild their lives.</p>
           </div>
         </div>
         <div class="right">
@@ -83,6 +89,11 @@ function templateDetail(data) {
         </div>
       </div>
 	`
+}
+
+// 选择器
+function templateOption(data) {
+  return `<option value="${data.CATEGORY_ID}" style="height: 0">${data.NAME}</option>`
 }
 
 // 获取首页公益列表
@@ -103,11 +114,22 @@ function getDetails(id) {
     })
 }
 
-// 获取 search list
-function getSearchList(id) {
-  fetch('http://localhost:3000/fundraiser/' + id)
+// 获取 所有类别
+function getCategories() {
+  fetch('http://localhost:3000/categories')
     .then(response => response.json())
     .then(res => {
-      document.getElementById('B').insertAdjacentHTML('beforeend', templateDetail(res))
+      res.forEach(item => document.getElementById('E').insertAdjacentHTML('beforeend', templateOption(item)))
+    })
+}
+
+// search
+function getSearch(params) {
+  const paramsUrl = new URLSearchParams(params)
+  fetch(`http://localhost:3000/search?${paramsUrl}`)
+    .then(response => response.json())
+    .then(res => {
+      document.getElementById('F').innerHTML = ''
+      res.forEach(item => document.getElementById('F').insertAdjacentHTML('beforeend', template(item)))
     })
 }

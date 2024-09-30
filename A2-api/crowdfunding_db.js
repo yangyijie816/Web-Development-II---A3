@@ -23,7 +23,6 @@ connection.connect(err => {
   console.log('数据库连接成功！')
 })
 
-// 1. 获取所有活动的筹款项目及其类别
 app.get('/fundraisers', (req, res) => {
   const query = `
         SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION,f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
@@ -38,8 +37,41 @@ app.get('/fundraisers', (req, res) => {
     res.json(results)
   })
 })
+app.get('/search', (req, res) => {
+  const params = []
+  const organizerCondition = req.query.organizer ? `f.ORGANIZER = ?` : ''
+  const cityCondition = req.query.city ? `f.CITY = ?` : ''
+  const categoryCondition = req.query.categoryId ? `f.CATEGORY_ID = ?` : ''
+  //
+  const conditions = [organizerCondition, cityCondition, categoryCondition].filter(Boolean)
+  const query = `
+  SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION, f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
+  FROM FUNDRAISER f
+  JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+  ${conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : ''}
+  `.trim()
 
-// 4. 根据 ID 获取筹款项目的详细信息
+  // 添加对应的参数
+  if (req.query.organizer) params.push(req.query.organizer)
+  if (req.query.city) params.push(req.query.city)
+  if (req.query.categoryId) params.push(req.query.categoryId)
+
+  connection.query(query, params, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
+    res.json(results)
+  })
+})
+
+app.get('/categories', (req, res) => {
+  connection.query('SELECT * FROM CATEGORY', (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
+    res.json(results)
+  })
+})
 app.get('/fundraiser/:id', (req, res) => {
   const fundraiserId = req.params.id
   const query = `
@@ -53,7 +85,7 @@ app.get('/fundraiser/:id', (req, res) => {
       return res.status(500).json({ error: err.message })
     }
     if (results.length === 0) {
-      return res.status(404).json({ message: 'Fundraiser not found' })
+      return res.status(404).json({ message: '404' })
     }
     res.json(results[0])
   })
