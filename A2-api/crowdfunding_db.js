@@ -39,6 +39,26 @@ app.get('/fundraisers', (req, res) => {
   })
 })
 
+// 4. 根据 ID 获取筹款项目的详细信息
+app.get('/fundraiser/:id', (req, res) => {
+  const fundraiserId = req.params.id
+  const query = `
+        SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
+        FROM FUNDRAISER f
+        JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+        WHERE f.FUNDRAISER_ID = ?
+    `
+  connection.query(query, [fundraiserId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'Fundraiser not found' })
+    }
+    res.json(results[0])
+  })
+})
+
 app.listen(port, () => {
   console.log('启动成功：' + `http://localhost:${port}`)
 })
