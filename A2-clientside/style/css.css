@@ -6,7 +6,8 @@ body {
   margin: 0;
 }
 ul,
-li {
+li,
+a {
   text-decoration: none;
   list-style: none;
 }
@@ -33,12 +34,29 @@ li {
   margin: 0 auto;
 }
 .header {
+  padding: 6px 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 .logo {
+  font-size: 24px;
   font-weight: 700;
+}
+.menus {
+  flex: 1;
+  flex-shrink: 0;
+}
+.menus ul,
+.login {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 18px;
+}
+.menus ul li a,
+.login a {
+  color: #2c2b34;
 }
 .banner {
   width: 100%;
