@@ -1,10 +1,12 @@
 const mysql = require('mysql2')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 // 默认端口号
 const port = 3000
 
 app.use(express.json())
+app.use(cors())
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -24,7 +26,7 @@ connection.connect(err => {
 // 1. 获取所有活动的筹款项目及其类别
 app.get('/fundraisers', (req, res) => {
   const query = `
-        SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
+        SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION,f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
         FROM FUNDRAISER f
         JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
         WHERE f.ACTIVE = 1
