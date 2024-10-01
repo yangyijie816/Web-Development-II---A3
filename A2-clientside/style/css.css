@@ -12,6 +12,7 @@ a {
   text-decoration: none;
   list-style: none;
 }
+/* 公共button样式 */
 .button {
   font-size: 14px;
   padding: 12px 25px;

@@ -72,7 +72,9 @@
   </body>
   <script src="./js/index.js"></script>
   <script>
+    // 获取当前路由参数
     const urlParams = new URLSearchParams(window.location.search)
+    // 根据id获取详情
     getDetails(urlParams.get('id'))
   </script>
 </html>

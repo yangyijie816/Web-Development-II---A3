@@ -1,10 +1,14 @@
+// 搜索
 function search() {
+  // 获取form表单数据
   const organizer = document.getElementById('C').value
   const city = document.getElementById('D').value
   const categoryId = document.getElementById('E').value
+  // 查询
   getSearch({ organizer, city, categoryId })
 }
 
+// clear form 数据
 function clearCheckboxes() {
   document.getElementById('C').value = ''
   document.getElementById('D').value = ''
@@ -12,10 +16,12 @@ function clearCheckboxes() {
   getSearch({})
 }
 
+// 跳转详情页
 function toDetails(id) {
   window.location.href = './details.html?id=' + id
 }
 
+// 首页列表模板
 function template(data, index) {
   return `
 		<li class="item" onclick="toDetails(${data.FUNDRAISER_ID})">
@@ -53,6 +59,7 @@ function template(data, index) {
 	`
 }
 
+// 详情模板
 function templateDetail(data) {
   return `
 	<div class="widthCenter">
@@ -96,7 +103,7 @@ function templateOption(data) {
   return `<option value="${data.CATEGORY_ID}" style="height: 0">${data.NAME}</option>`
 }
 
-// 获取首页公益列表
+// 获取首页列表
 function getFundraisers() {
   fetch('http://localhost:3000/fundraisers')
     .then(response => response.json())
@@ -105,7 +112,7 @@ function getFundraisers() {
     })
 }
 
-// 获取公益详情
+// 获取详情
 function getDetails(id) {
   fetch('http://localhost:3000/fundraiser/' + id)
     .then(response => response.json())
@@ -123,7 +130,7 @@ function getCategories() {
     })
 }
 
-// search
+// 获取搜索列表
 function getSearch(params) {
   const paramsUrl = new URLSearchParams(params)
   fetch(`http://localhost:3000/search?${paramsUrl}`)
