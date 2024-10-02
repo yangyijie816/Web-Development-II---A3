@@ -1,14 +1,14 @@
-// 搜索
+// Search
 function search() {
-  // 获取form表单数据
+  // Get form form data
   const organizer = document.getElementById('C').value
   const city = document.getElementById('D').value
   const categoryId = document.getElementById('E').value
-  // 查询
+  // Inquire
   getSearch({ organizer, city, categoryId })
 }
 
-// clear form 数据
+// clear form DATA
 function clearCheckboxes() {
   document.getElementById('C').value = ''
   document.getElementById('D').value = ''
@@ -16,7 +16,7 @@ function clearCheckboxes() {
   getSearch({})
 }
 
-// 跳转详情页
+// Jump to details page
 function toDetails(id) {
   window.location.href = './details.html?id=' + id
 }
@@ -68,7 +68,7 @@ function text(index) {
   return textareaText[index - 1]
 }
 
-// 首页列表模板
+// Home list template
 function template(data, index) {
   return `
 		<li class="item" onclick="toDetails(${data.FUNDRAISER_ID})">
@@ -100,7 +100,7 @@ function template(data, index) {
 	`
 }
 
-// 详情模板
+// Detail template
 function templateDetail(data) {
   return `
 	<div class="widthCenter">
@@ -133,12 +133,12 @@ function templateDetail(data) {
 	`
 }
 
-// 选择器
+// Selector
 function templateOption(data) {
   return `<option value="${data.CATEGORY_ID}" style="height: 0">${data.NAME}</option>`
 }
 
-// 获取首页列表
+// Get home page list
 function getFundraisers() {
   fetch('http://localhost:3000/fundraisers')
     .then(response => response.json())
@@ -147,7 +147,7 @@ function getFundraisers() {
     })
 }
 
-// 获取详情
+// Get details
 function getDetails(id) {
   fetch('http://localhost:3000/fundraiser/' + id)
     .then(response => response.json())
@@ -156,7 +156,7 @@ function getDetails(id) {
     })
 }
 
-// 获取 所有类别
+// Get all categories
 function getCategories() {
   fetch('http://localhost:3000/categories')
     .then(response => response.json())
@@ -165,7 +165,7 @@ function getCategories() {
     })
 }
 
-// 获取搜索列表
+// Get search list
 function getSearch(params) {
   const paramsUrl = new URLSearchParams(params)
   fetch(`http://localhost:3000/search?${paramsUrl}`)
