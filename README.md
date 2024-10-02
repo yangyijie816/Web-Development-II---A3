@@ -14,4 +14,4 @@ The purpose of designing this dynamic website is to manage crowdfunding for a no
 2024/09/29： Interface to the home page and details page
 2024/09/30： This interface connects to the search page
 2024/10/01： Modify the page style and modify bugs
-2024/10/02:  Add additional code comments and make final refinements to the task
+2024/10/02:  Add additional code comments and make final refinements to the assessment
