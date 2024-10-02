@@ -15,3 +15,31 @@ The purpose of designing this dynamic website is to manage crowdfunding for a no
 2024/09/30： This interface connects to the search page
 2024/10/01： Modify the page style and modify bugs
 2024/10/02:  Add additional code comments and make final refinements to the assessment
+
+RiseTogether
+一、README.md              · Project description document
+二、.gitignore             · Git ignore files
+三、package.json           · Project dependency management
+四、package-lock.json      · Dependency lock file
+五、db/                    · Database related file
+   - crowdfunding_db.js    · NodeJS file that connects to the database
+   - init.sql              · SQL script for initializing the database
+六、server/                · Server-side code
+   - app.js                · Main application file
+   - routes/               · API routing file
+     - fundraiser.js       · Fundraiser API route
+     - category.js         · Class API routing
+   - models/               · Data model file
+     - fundraiser.js       · Fundraiser data model
+     - category.js         · Category data model
+七、client/
+   - index.html
+   - search.html
+   - fundraiser.html
+   - css/
+     - style.css
+   - js/
+     - index.js
+     - search.js
+     - fundraiser.js
+   - images/
