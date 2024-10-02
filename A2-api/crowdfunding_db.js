@@ -2,22 +2,22 @@ const mysql = require('mysql2')
 const express = require('express')
 const cors = require('cors')
 const app = express()
-// 默认端口号
+// Default port number
 const port = 3000
 
 app.use(express.json())
-// 防止跨域
+// Cross-domain prevention
 app.use(cors())
 
-// 配置数据库参数
+// Configuring database parameters
 const connection = mysql.createConnection({
-  host: 'localhost', // 数据库ip
-  user: 'root', // 数据库用户名
-  password: '123456', // 数据库密码
-  database: 'crowdfunding_db', //数据库名称
+  host: 'localhost', // Database ip
+  user: 'root', // Database user name
+  password: '777486YYY', // Database password  
+  database: 'crowdfunding_db', // Database Name
 })
 
-// 链接数据库
+// Linked database
 connection.connect(err => {
   if (err) {
     console.log('数据库连接失败: ' + err.stack)
@@ -26,7 +26,7 @@ connection.connect(err => {
   console.log('数据库连接成功！')
 })
 
-// 获取筹款人列表
+// Get a list of fundraisers
 app.get('/fundraisers', (req, res) => {
   const query = `
         SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION,f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
@@ -42,13 +42,13 @@ app.get('/fundraisers', (req, res) => {
   })
 })
 
-// 根据条件获取筹款人列表organizer、city、categoryId
+// Get a list of fundraisers according to the conditions:organizer, city, catagoryId
 app.get('/search', (req, res) => {
   const params = []
   const organizerCondition = req.query.organizer ? `f.ORGANIZER = ?` : ''
   const cityCondition = req.query.city ? `f.CITY = ?` : ''
   const categoryCondition = req.query.categoryId ? `f.CATEGORY_ID = ?` : ''
-  // 过滤掉没有传入的参数
+  // Filter out parameters that are not passed in
   const conditions = [organizerCondition, cityCondition, categoryCondition].filter(Boolean)
   const query = `
   SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION, f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
@@ -57,7 +57,7 @@ app.get('/search', (req, res) => {
   ${conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : ''}
   `.trim()
 
-  // 添加对应的参数
+  // Add the corresponding parameters
   if (req.query.organizer) params.push(req.query.organizer)
   if (req.query.city) params.push(req.query.city)
   if (req.query.categoryId) params.push(req.query.categoryId)
@@ -70,7 +70,7 @@ app.get('/search', (req, res) => {
   })
 })
 
-// 获取所有分类
+// Get all categories
 app.get('/categories', (req, res) => {
   connection.query('SELECT * FROM CATEGORY', (err, results) => {
     if (err) {
@@ -80,7 +80,7 @@ app.get('/categories', (req, res) => {
   })
 })
 
-//根据ID拿到详情
+// Get the details based on the ID
 app.get('/fundraiser/:id', (req, res) => {
   const fundraiserId = req.params.id
   const query = `
@@ -100,7 +100,7 @@ app.get('/fundraiser/:id', (req, res) => {
   })
 })
 
-// 数据库启动
+// Database startup
 app.listen(port, () => {
   console.log('启动成功：' + `http://localhost:${port}`)
 })
