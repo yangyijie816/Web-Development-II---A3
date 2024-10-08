@@ -19,7 +19,7 @@
         <div class="content">
           <div class="h1">New</div>
 		  <div class="form">
-			<form id="newForm" action="http://localhost:3004/fundraiser" method="post">
+			<form id="newForm">
 				<label for="CAPTION">CAPTION(标题)<span class="required">*</span>:</label>
 				<div class="input"><input type="text" id="CAPTION" name="CAPTION" required></div><br><br>
 
@@ -33,7 +33,10 @@
 				<div class="input"><input type="text" id="ORGANIZER" name="ORGANIZER" required></div><br><br>
 
 				<label for="TARGET_FUNDING">TARGET_FUNDING(目标融资)<span class="required">*</span>:</label>
-				<div class="input"><input type="number" id="TARGET_FUNDING" name="TARGET_FUNDING" required></div><br><br>
+				<div class="input"><input type="number" id="TARGET_FUNDING" name="TARGET_FUNDING" value="1" min="1" required></div><br><br>
+
+				<label for="CURRENT_FUNDING">CURRENT_FUNDING(目前金额)<span class="required">*</span>:</label>
+				<div class="input"><input type="number" id="CURRENT_FUNDING" name="CURRENT_FUNDING" value="0" min="0" required></div><br><br>
 
 				<label for="CITY">CITY(城市)<span class="required">*</span>:</label>
 				<div class="input"><input id="CITY" name="TARGET_FUNDING" required></div><br><br>
@@ -46,11 +49,11 @@
 				<br><br>
 
 				<div class="description">
-					<label for="message">DESCRIPTION(描述)<span class="required">*</span>:</label>
-					<textarea placeholder="Please enter a description" id="message" name="message" rows="4" required></textarea>
+					<label for="DESCRIPTION">DESCRIPTION(描述):</label>
+					<textarea placeholder="Please enter a description" id="DESCRIPTION" name="DESCRIPTION" rows="6" ></textarea>
 				</div>
 
-				<div class="submit"><button type="submit" class="button default">Save</button></div>
+				<div class="submit"><button type="submit" class="button primary">Save</button></div>
 			</form>
 		  </div>
         </div>
@@ -58,5 +61,13 @@
     </div>
   </body>
   <script src="./js/index.js"></script>
-  <script>getCategories(false)</script>
+  <script>
+	// 立即执行 Promise
+	(async function(){
+		// Acquisition sort
+		await getCategories(false)
+		// 绑定submit事件
+		await setNewFormSubmit()
+	})()  
+   </script>
 </html>
