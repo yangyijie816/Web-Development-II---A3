@@ -1,11 +1,24 @@
+// 清除当前页面跳转，解决back无法刷新问题
+function goBack(url) {
+  window.location.replace(url) // 替换为目标
+}
 // 确定删除提示框
 function showConfirm(id) {
   const result = confirm('Are you sure you want to delete it?')
   if (result) {
-    console.log('确定删除')
-  } else {
-    console.log('取消删除')
+    deleteFundraiser(id)
   }
+}
+
+// 提示 message
+function showMessage(type, message) {
+  const alertBox = document.createElement('div')
+  alertBox.className = 'message ' + (type === 'S' ? 'message-success' : 'message-error')
+  alertBox.innerText = message
+  document.body.appendChild(alertBox)
+  setTimeout(() => {
+    alertBox.remove()
+  }, 2000)
 }
 
 // Search
@@ -24,6 +37,44 @@ function clearCheckboxes() {
   document.getElementById('city').value = ''
   document.getElementById('category').value = ''
   getFundraisers({})
+}
+
+// 获取form表单数据
+function getFormData() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const formData = {
+    id: urlParams.get('id'),
+    ORGANIZER: document.getElementById('ORGANIZER').value,
+    CAPTION: document.getElementById('CAPTION').value,
+    TARGET_FUNDING: document.getElementById('TARGET_FUNDING').value,
+    CURRENT_FUNDING: document.getElementById('CURRENT_FUNDING').value,
+    CITY: document.getElementById('CITY').value,
+    ACTIVE: 1,
+    CATEGORY_ID: document.getElementById('category').value,
+    DESCRIPTION: document.getElementById('DESCRIPTION').value,
+  }
+  const radios = document.getElementsByName('ACTIVE')
+  for (const element of radios) {
+    if (element.checked) {
+      formData.ACTIVE = element.value
+    }
+  }
+
+  return formData
+}
+
+// 绑定form表单提交事件
+function setNewFormSubmit() {
+  document.getElementById('newForm').addEventListener('submit', event => {
+    event.preventDefault() // 阻止默认表单提交
+    const formData = getFormData()
+    // 如果有ID则更新，反之新增
+    if (formData.id !== null) {
+      putFundraiserInfo(formData.id, formData)
+    } else {
+      postFundraiserInfo(formData)
+    }
+  })
 }
 
 // 是否显示no-data提示
@@ -86,6 +137,7 @@ function backfillFormData(data) {
   }
   document.getElementById('ORGANIZER').value = data.ORGANIZER
   document.getElementById('TARGET_FUNDING').value = data.TARGET_FUNDING
+  document.getElementById('CURRENT_FUNDING').value = data.CURRENT_FUNDING
   document.getElementById('CITY').value = data.CITY
   const radios = document.getElementsByName('ACTIVE')
   for (const radio of radios) {
@@ -136,8 +188,70 @@ function getDetails() {
   fetch('http://localhost:3000/fundraiser/' + urlParams.get('id'))
     .then(response => response.json())
     .then(res => {
-      console.log(res)
       // 回填表单数据
       backfillFormData(res)
     })
+}
+
+// 更新筹款人信息
+function putFundraiserInfo(id, data) {
+  delete data.id
+  fetch(`http://localhost:3000/fundraiser/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  }).then(res => {
+    if (res.status === 200) {
+      showMessage('S', 'Update Successfully')
+      // 2s 后返回上一页
+      setTimeout(() => {
+        goBack('./fundraiser.html')
+      }, 2000)
+    } else {
+      showMessage('S', 'Update Failed')
+    }
+  })
+}
+
+// 新增筹款人
+function postFundraiserInfo(data) {
+  fetch(`http://localhost:3000/fundraiser`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  }).then(res => {
+    if (res.status === 200) {
+      showMessage('S', 'Successfully Added')
+      // 2s 后返回上一页
+      setTimeout(() => {
+        goBack('./fundraiser.html')
+      }, 2000)
+    } else {
+      showMessage('E', 'Fail to add')
+    }
+  })
+}
+
+// delete Fundraiser
+function deleteFundraiser(id) {
+  fetch(`http://localhost:3000/fundraiser/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(async res => {
+    if (res.status === 200) {
+      // 提示
+      showMessage('S', 'successfully delete')
+      // 刷新table
+      searchTable()
+    } else {
+      const data = await res.json()
+      showMessage('E', data.message)
+    }
+  })
 }
