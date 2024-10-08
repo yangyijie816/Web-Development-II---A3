@@ -9,12 +9,12 @@
 
   <body>
     <!-- header -->
-    <div class="center">
+    <div class="center header-fixed">
       <div class="header">
         <div class="logo"><a href="./index.html">RiseTogether</a></div>
         <div class="menus">
           <ul id="path">
-            <li><a href="./index.html" class="active">Home</a></li>
+            <li><a href="#" class="active">Home</a></li>
             <li><a href="./search.html">Crowdfunding</a></li>
           </ul>
         </div>
@@ -24,6 +24,12 @@
           <div class="button">Start a RiseTogether</div>
         </div>
       </div>
+    </div>
+    <!-- Occupying height -->
+    <div class="placeholderDiv"></div>
+    <!-- welcome -->
+    <div class="welcome" id="welcome">
+      We're delighted to have you here. At Sue's FundHub, we connect passionate fundraisers with generous donors to support meaningful causes!
     </div>
     <!-- banner -->
     <div class="banner">
@@ -71,6 +77,8 @@
   </body>
   <script src="./js/index.js"></script>
   <script>
+    // Set the greeting roll gradient
+    setWelcome()
     // Get fundraising list
     getFundraisers()
   </script>
