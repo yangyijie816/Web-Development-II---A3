@@ -51,7 +51,7 @@ app.get('/search', (req, res) => {
   // Filter out parameters that are not passed in
   const conditions = [organizerCondition, cityCondition, categoryCondition].filter(Boolean)
   const query = `
-  SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION, f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
+  SELECT f.*, c.NAME AS CATEGORY_NAME
   FROM FUNDRAISER f
   JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
   ${conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : ''}
@@ -122,9 +122,9 @@ app.get('/fundraiser/:id', (req, res) => {
 app.put('/fundraiser/:id', async (req, res) => {
   const fundraiserId = req.params.id
   if (fundraiserId === undefined || fundraiserId === null) return res.status(400).json({ message: 'lack id parameter' })
-  const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION } = req.body
-  const updates = ['ORGANIZER = ?', 'CAPTION = ?', 'TARGET_FUNDING = ?', 'CURRENT_FUNDING = ?', 'CITY = ?', 'ACTIVE = ?', 'CATEGORY_ID = ?', 'DESCRIPTION = ?']
-  const values = [ORGANIZER, CAPTION, Number(TARGET_FUNDING), Number(CURRENT_FUNDING), CITY, Number(ACTIVE), Number(CATEGORY_ID), DESCRIPTION]
+  const { ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION } = req.body
+  const updates = ['ORGANIZER = ?', 'CAPTION = ?', 'TARGET_FUNDING = ?', 'CITY = ?', 'ACTIVE = ?', 'CATEGORY_ID = ?', 'DESCRIPTION = ?']
+  const values = [ORGANIZER, CAPTION, Number(TARGET_FUNDING), CITY, Number(ACTIVE), Number(CATEGORY_ID), DESCRIPTION]
   if (updates.length === 0) {
     return res.status(400).json({ message: 'No update field is provided' })
   }
@@ -160,19 +160,16 @@ app.post('/donation', (req, res) => {
 
 // 创建POST方法将新的筹款人插入数据库。
 app.post('/fundraiser', (req, res) => {
-  const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION } = req.body
+  const { ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION } = req.body
   if (ORGANIZER === null) return res.status(400).json({ message: 'lack ORGANIZER parameter' })
   if (CAPTION === null) return res.status(400).json({ message: 'lack CAPTION parameter' })
   if (TARGET_FUNDING === null) return res.status(400).json({ message: 'lack TARGET_FUNDING parameter' })
-  if (CURRENT_FUNDING === null) return res.status(400).json({ message: 'lack CURRENT_FUNDING parameter' })
   if (CITY === null) return res.status(400).json({ message: 'lack CITY parameter' })
   if (ACTIVE === null) return res.status(400).json({ message: 'lack ACTIVE parameter' })
   if (CATEGORY_ID === null) return res.status(400).json({ message: 'lack CATEGORY_ID parameter' })
   if (Number(TARGET_FUNDING) < 1) return res.status(400).json({ message: "TARGET_FUNDING Can't be less than 1" })
-  if (Number(CURRENT_FUNDING) < 0) return res.status(400).json({ message: "CURRENT_FUNDING Can't be less than 0" })
-  const query =
-    'INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-  connection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION], (err, results) => {
+  const query = 'INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION) VALUES (?, ?, ?, ?, ?, ?, ?)'
+  connection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION], (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
     res.status(200).json({ message: 'New success', fundraiserId: results.insertId })
   })
