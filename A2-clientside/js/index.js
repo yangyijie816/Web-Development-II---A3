@@ -25,53 +25,6 @@ function toDonate(id) {
   window.location.href = './donate.html?id=' + id
 }
 
-function text(index) {
-  const textareaText = [
-    `<p>Imagine the devastation of having your home and community torn apart by a hurricane. With several hurricanes expected this season, the 2024 Hurricane Relief Fund by RiseTogether Charities is here to provide critical financial relief to those affected.</p>
-
-      <p>As part of our Care & Relief fund, 100% of your donation goes directly to those in need, with RiseTogether.com covering all Stripe processing fees. All donations are tax-deductible and will be distributed as grants to campaigns hosted on RiseTogether.com.</p>
-
-      <p>If you or someone you know has been impacted by these hurricanes, we encourage you to start a campaign on RiseTogether.com and apply for a grant on our website RiseTogether.org.</p>
-
-      <p>Your generous support can bring hope and relief to those facing this devastating reality. Join us in making a difference. Donate now to help hurricane victims rebuild their lives.</p>
-    `,
-    `
-      <p>As our charity has grown, there have become more opportunities than ever to use the tools we've been given to impact the world in powerful ways. As many know, our organization takes 0% from donations in our Giver Army and our Care & Relief Campaigns (our two largest efforts), </p><p>allowing for the most significant level of nonprofit transparency and for the greatest impact from every donation.</p>
-      <p>Learn more at www.RiseTogether.org</p>
-      <p>How can we run if we don't take any fees? RiseTogether.com has generously made this possible by covering processing fees and helping fund some of our projects, but the need for more tools is constantly growing. Now more than ever, the world has become relatively small in our eyes as the needs become great. With more resources, we can amp up our efforts and create even more effective ways to impact people facing crisis. </p>
-      <p>We've set up this fund for those who believe in our mission and want to directly impact our organization by funding our growth. Growth for our organization doesn't look like bigger paychecks for our directors, but it’s an opportunity to get our causes out there on a grander scale, allowing us to find and impact even more people in need. </p>
-      <p>Join us in making an impact!</p>
-      `,
-    `
-      <p>Lee, Alexis and Xander have felt, for many years, that their family has not been complete. After fostering a child in need, they decided that saying goodbye to the child they have grown to love was something their hearts could not handle and decided to grow their family through adoption. After many (many) months of praying, they were notified this past week that a baby was available. </p>
-
-      <p>Aliyah, a precious one month old, whose birth mother made the ultimate sacrifice, had a tragic start to her life.  She was born pre-maturely and was left in a box on the outside of the hospital in Brevard County. </p>
-
-      <p>On Monday, Lee, Alexis and Xander were able to meet and hold her and Aliyah instantly stole their hearts and they knew God had placed her in their lives as the next member of their family.</p>
-
-      <p>As such, adoption is never free. This campaign is to assist them in the funds needed to cover the legal and state fees required to make Aliyah a "Lovette" and to change what could have been a tragic story into one that only God knows how to write. </p>
-    `,
-    `
-      <p>The aftermath of Hurricane Helene has left many of us struggling to grasp the full scale of the devastation in Western North Carolina, South Carolina, Tennessee, and Georgia. The damage to our beloved mountain region is unimaginable, and countless families are in desperate need of help. If you're like me, you're eager to contribute but may not be sure how.</p>
-
-      <p>To make it easier for our community to take action, Provident Wealth Management is stepping up as a local donation hub for much-needed supplies. We have partnered with trusted local organizations to ensure that all donations are delivered promptly to the areas hardest hit. We’ll be making deliveries over the next two weeks, and every contribution counts.</p>
-    `,
-    `
-      <p>Please join me in lending a gracious hand to my cousin, Lucas Frazier and his wife, Alex. They were able to escape from their home in the middle of a massive mudslide just outside of Asheville, NC. Although Asheville had made preparations for rising waters in town, I don’t think a mudslide/landslide ever cross anyone’s minds! Lucas and Alex’s house was swept off of its foundation and traveled a great distance before crashing into another home. </p>
-
-      <p> Alex suffered a severe cut on her ankle as they were escaping thru a window of their home and had to be taken to a local hospital via helicopter. Lucas had to stay behind and had no communication with his wife for two days & two nights. Eventually, they ended up in different shelters for the remainder of the weekend.</p>
-
-      <p>This family lost everything they owned in the mudslide, including their vehicles & Lucas’ tools, with which he makes a living. Thankfully, by the grace of God, they were able to escape the situation. They are now being taken into my Aunt and Uncles home in Rockwell, NC. They are still trying to process this whole experience, but the bottom line is that all they had just a few days ago… is now gone.</p>
-
-      <p>Please join me in giving, so that this beautiful family can start rebuilding their future together.</p>
-      <p>Thank you in advance and God Bless! </p>
-
-      <p>P.S. The Pic was taken by Lucas Frazier. This photo was taken standing in what used to be his living room. If you look closely, you will see part of a small red metal roof. That is the second story roof of their home! </p>
-    `,
-  ]
-  return textareaText[index - 1]
-}
-
 // Home list template
 function template(data, index) {
   return `
@@ -96,7 +49,7 @@ function template(data, index) {
                 <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
               </div>
               <div class="about">
-               ${text(data.FUNDRAISER_ID)}
+               ${data.DESCRIPTION}
               </div>
             </div>
           </div>
@@ -132,7 +85,7 @@ function templateDetail(data) {
             <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
           </div>
           <div class="about">
-            ${text(data.FUNDRAISER_ID)}
+            ${data.DESCRIPTION}
           </div>
         </div>
         <div class="right">
@@ -226,6 +179,9 @@ function getSearch(params) {
     .then(response => response.json())
     .then(res => {
       document.getElementById('F').innerHTML = ''
+      if (res.length === 0) {
+        return (document.getElementById('F').innerHTML = `<div class="tips">No relevant information found</div>`)
+      }
       res.forEach(item => document.getElementById('F').insertAdjacentHTML('beforeend', template(item)))
     })
 }
