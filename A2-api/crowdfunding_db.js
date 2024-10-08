@@ -84,19 +84,37 @@ app.get('/categories', (req, res) => {
 app.get('/fundraiser/:id', (req, res) => {
   const fundraiserId = req.params.id
   const query = `
-        SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION, f.DESCRIPTION, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY,f.CATEGORY_ID, c.NAME AS CATEGORY_NAME
-        FROM FUNDRAISER f
-        JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
-        WHERE f.FUNDRAISER_ID = ?
+        SELECT 
+            f.*, 
+            c.NAME AS CATEGORY_NAME
+        FROM 
+            FUNDRAISER f
+        JOIN 
+            CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+        WHERE 
+            f.FUNDRAISER_ID = ?;
+
     `
   connection.query(query, [fundraiserId], (err, results) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
     if (results.length === 0) {
-      return res.status(404).json({ message: '404' })
+      return res.status(404).json({ message: '查询数据不存在' })
     }
-    res.json(results[0])
+    const data = results[0]
+    //查询关联表所有捐赠人信息
+    const donateQuery = `SELECT *, DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS formatted_date FROM DONATION WHERE FUNDRAISER_ID = ? ORDER BY DATE DESC;`
+    const amountTotalQuery = `SELECT SUM(AMOUNT) AS total_donation FROM DONATION WHERE FUNDRAISER_ID = ?`
+    connection.query(donateQuery, [data.FUNDRAISER_ID], (error, donateResults) => {
+      if (error) return res.status(500).json({ message: error.message })
+      data.donates = donateResults
+      // data.CURRENT_FUNDING = totalDonation
+      connection.query(amountTotalQuery, [data.FUNDRAISER_ID], (e, [amountTotal]) => {
+        data.CURRENT_FUNDING = amountTotal.total_donation
+        res.json(data)
+      })
+    })
   })
 })
 
@@ -127,11 +145,16 @@ app.put('/fundraiser/:id', async (req, res) => {
 
 // 添加新的捐赠信息
 app.post('/donation', (req, res) => {
-  const { date, amount, giver, fundraiserId } = req.body
+  const { AMOUNT, GIVER, FUNDRAISER_ID } = req.body
+  console.log(AMOUNT, GIVER, FUNDRAISER_ID)
+  if (AMOUNT === null) return res.status(400).json({ message: 'The amount is required' })
+  if (GIVER === null) return res.status(400).json({ message: 'The giver is required' })
+  if (FUNDRAISER_ID === null) return res.status(400).json({ message: 'The FUNDRAISER ID is required' })
+  const date = new Date()
   const query = 'INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES (?, ?, ?, ?)'
-  connection.query(query, [date, amount, giver, fundraiserId], (err, results) => {
+  connection.query(query, [date, Number(AMOUNT), GIVER, Number(FUNDRAISER_ID)], (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
-    res.status(201).json({ message: '添加成功', donationId: results.insertId })
+    res.status(200).json({ message: '添加成功' })
   })
 })
 
