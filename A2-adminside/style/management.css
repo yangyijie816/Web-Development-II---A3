@@ -1,0 +1,294 @@
+/*  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* header样式 */
+.header {
+  background-color: #757575;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.header a {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+}
+.main {
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - 88px);
+}
+.side {
+  width: 300px;
+  background-color: #7a8185;
+}
+/* 左侧side默认样式 */
+.side a {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+}
+/* 左侧side鼠标悬浮样式 */
+.side a:hover {
+  background-color: #434343;
+  color: white;
+}
+/* 左侧side选中样式 */
+.active {
+  background-color: #434343;
+  color: white !important;
+}
+/* 内容布局样式 */
+.content {
+  flex: 1;
+  flex-shrink: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.h1 {
+  font-size: 24px;
+  font-family: 500;
+  padding: 16px 0;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search .form {
+  display: flex;
+  gap: 16px;
+}
+/* 按钮样式 */
+.button {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1;
+  font-family: inherit;
+  padding: 0 14px;
+  height: 34px;
+  font-size: 14px;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #18a058;
+  border: 1px solid #18a058;
+  width: initial;
+  white-space: nowrap;
+  outline: none;
+  z-index: auto;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* 主题按钮样式 */
+.primary {
+  background-color: #18a058;
+  color: #fff;
+  border: 1px solid #18a058;
+}
+/* 主题按钮鼠标悬浮样式 */
+.primary:hover {
+  background-color: #36ad6a;
+  border: 1px solid #18a058;
+}
+/* 删除按钮样式 */
+.delete {
+  background-color: #d03050;
+  border: 1px solid #d03050;
+}
+/* 删除按钮鼠标悬浮样式 */
+.delete:hover {
+  background-color: #de576d;
+  border: 1px solid #de576d;
+}
+/* 默认按钮样式 */
+.default {
+  background-color: #0000;
+  color: rgb(51, 54, 57);
+  border: 1px solid rgb(224, 224, 230);
+}
+/* 默认按钮鼠标悬浮样式 */
+.default:hover {
+  color: #18a058;
+  border: 1px solid #18a058;
+}
+
+.search .form-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+/* 设置input包裹的类样式 */
+.input {
+  width: 240px;
+  overflow: hidden;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: text;
+  line-height: 1.5;
+  outline: none;
+  box-sizing: border-box;
+  display: inline-flex;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 1);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  border: 1px solid rgb(224, 224, 230);
+}
+
+.input select {
+  width: 100%;
+  height: 34px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* 设置所有input样式 */
+.input input {
+  width: 100%;
+  scrollbar-width: none;
+  text-decoration-color: rgb(51, 54, 57);
+  color: rgb(51, 54, 57);
+  caret-color: #18a058;
+  background-color: transparent;
+  padding: 0;
+  height: 34px;
+  line-height: 34px;
+  box-sizing: border-box;
+  font-size: inherit;
+  line-height: 1.5;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  background-color: #0000;
+  text-align: inherit;
+}
+/* disabled样式 */
+.input input:disabled {
+  cursor: not-allowed;
+}
+.input.disabled {
+  background-color: rgb(250, 250, 252);
+  cursor: not-allowed;
+}
+
+/* radio */
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.table {
+  width: 100%;
+}
+
+/* Set table style */
+table {
+  width: 100%;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+  border-radius: 3px;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  background-color: #fff;
+  border-color: rgba(239, 239, 245, 1);
+  transition: background-color 0.3s var(--n-bezier), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* 设置表头样式 */
+th {
+  background-color: rgba(250, 250, 252, 1);
+  font-weight: 500;
+  padding: 12px;
+  color: rgb(31, 34, 37);
+  border-bottom: 1px solid rgba(239, 239, 245, 1);
+  border-right: 1px solid rgba(239, 239, 245, 1);
+}
+/* 最后一个表头不加border */
+tr th:last-child {
+  border-right: 0px solid rgba(239, 239, 245, 1);
+}
+
+/* 设置表格样式 */
+td {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 12px;
+  color: rgb(51, 54, 57);
+  background-color: #fff;
+  border: 0px solid rgba(239, 239, 245, 1);
+  border-right: 1px solid rgba(239, 239, 245, 1);
+  border-bottom: 1px solid rgba(239, 239, 245, 1);
+}
+
+/* 最后一列不加 border */
+td:last-child {
+  border-right: 0px solid rgba(239, 239, 245, 1);
+}
+
+/* form表单  ">"号防止与fundraiserList中的"form"类名冲突*/
+#newForm {
+  width: 100%;
+}
+.content > .form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.content > .form label {
+  display: inline-block;
+  margin-right: 16px;
+  font-size: 18px;
+  width: 300px;
+  text-align: right;
+}
+.content > .form .input {
+  width: 320px;
+}
+
+.content > .form .submit {
+  width: 100%;
+  margin-top: 32px;
+  text-align: center;
+}
+
+.description {
+  display: flex;
+}
+/* 设置textarea宽度 */
+.content > .form textarea {
+  display: inline-block;
+  min-width: 1000px;
+  max-width: 1000px;
+  border: 1px solid rgb(224, 224, 230);
+  outline: none;
+  font-size: 14px;
+  padding: 14px;
+}
