@@ -14,41 +14,40 @@
       <div class="main">
         <div class="side">
 			<a href="./fundraiser.html" class="active">Fundraiser</a>
+      		<a href="./category.html" >Category</a>
 		</div>
         <div class="content">
           <div class="h1">New</div>
 		  <div class="form">
 			<form id="newForm" action="http://localhost:3004/fundraiser" method="post">
-				<label for="CAPTION">CAPTION(标题):</label>
+				<label for="CAPTION">CAPTION(标题)<span class="required">*</span>:</label>
 				<div class="input"><input type="text" id="CAPTION" name="CAPTION" required></div><br><br>
 
-				<label for="CATEGORY_ID">CATEGORY(类别):</label>
+				<label for="category">CATEGORY(类别)<span class="required">*</span>:</label>
 				<div class="input">
-					<select type="number" id="CATEGORY_ID" name="CATEGORY_ID">
-						<option value="1">中国</option>
-						<option value="2">美国</option>
-						<option value="3">日本</option>
+					<select type="number" id="category" name="CATEGORY_ID" required>
 					</select>
 				</div><br><br>
 
-				<label for="ORGANIZER">ORGANIZER(组织者):</label>
+				<label for="ORGANIZER">ORGANIZER(组织者)<span class="required">*</span>:</label>
 				<div class="input"><input type="text" id="ORGANIZER" name="ORGANIZER" required></div><br><br>
 
-				<label for="TARGET_FUNDING">TARGET_FUNDING(目标融资):</label>
-				<div class="input"><input type="number" id="TARGET_FUNDING" name="TARGET_FUNDING"></div><br><br>
+				<label for="TARGET_FUNDING">TARGET_FUNDING(目标融资)<span class="required">*</span>:</label>
+				<div class="input"><input type="number" id="TARGET_FUNDING" name="TARGET_FUNDING" required></div><br><br>
 
-				<label for="CITY">CITY(城市):</label>
-				<div class="input"><input type="text" id="CITY" name="TARGET_FUNDING"></div><br><br>
+				<label for="CITY">CITY(城市)<span class="required">*</span>:</label>
+				<div class="input"><input id="CITY" name="TARGET_FUNDING" required></div><br><br>
 
-
-				<label for="ACTIVE">ACTIVE(状态):</label>
-					<div class="radio"><input type="radio" name="radio" value="yes" checked/>进行中
-						<input type="radio" name="radio" value="no" />禁止</div>
+				<label for="ACTIVE">ACTIVE(状态)<span class="required">*</span>:</label>
+					<div class="radio">
+						<input type="radio" name="radio" value="1" checked required/>Underway
+						<input type="radio" name="radio" value="0" required />Finished
+					</div>
 				<br><br>
 
 				<div class="description">
-					<label for="message">DESCRIPTION(描述):</label>
-					<textarea id="message" name="message" rows="4" required></textarea>
+					<label for="message">DESCRIPTION(描述)<span class="required">*</span>:</label>
+					<textarea placeholder="Please enter a description" id="message" name="message" rows="4" required></textarea>
 				</div>
 
 				<div class="submit"><button type="submit" class="button default">Save</button></div>
@@ -58,4 +57,6 @@
       </div>
     </div>
   </body>
+  <script src="./js/index.js"></script>
+  <script>getCategories(false)</script>
 </html>

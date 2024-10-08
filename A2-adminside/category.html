@@ -20,72 +20,29 @@
           <div class="h1">Category List</div>
           <div class="search">
             <div class="form">
-              <div class="form-item">
-                <div class="headline">CAPTION</div>
-                <div class="input"><input/></div>
-              </div>
-              <div class="form-item">
-                <div class="headline">ORGANIZER</div>
-                <div class="input"><input/></div>
-              </div>
-              <div class="form-item">
-                <div class="headline">CITY</div>
-                <div class="input"><input/></div>
-              </div>
             </div>
             <div class="action">
-              <div><a href="./new.html" class="button primary">New</a></div>
+              <div><a href="./category-new.html" class="button primary">New</a></div>
             </div>
           </div>
           <div class="table">
-            <table>
+            <table id="Table">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>CAPTION(标题)</th>
-                  <th>ORGANIZER(组织者)</th>
-                  <th>TARGET_FUNDING(目标融资)</th>
-                  <th>CURRENT_FUNDING(目前的资金)</th>
-                  <th>CITY(城市)</th>
-                  <th>ACTIVE(状态)</th>
-                  <th>CATEGORY(类别)</th>
-                  <th>Action(操作)</th>
+                  <th>NAME(标题)</th>
                 </tr>
               </thead>
-              <tr>
-                <td>1</td>
-                <td>2024 Hurricane Relief Fund</td>
-                <td>Alice</td>
-                <td>5000.00</td>
-                <td>1500.00</td>
-                <td>New York</td>
-                <td>1</td>
-                <td>类别</td>
-                <td>
-                  <div>
-                    <a href="./edit.html" class="button default">Edit</a>
-                    <a href="#" class="button delete">Delete</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>2024 Hurricane Relief Fund</td>
-                <td>Alice</td>
-                <td>5000.00</td>
-                <td>1500.00</td>
-                <td>New York</td>
-                <td>1</td>
-                <td>类别</td>
-                <td><div>
-                  <a href="./edit.html" class="button default">Edit</a>
-                  <a href="#" class="button delete">Delete</a>
-                </div></td>
-              </tr>
             </table>
+			<div class="no-data">You didn't find anything</div>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="./js/index.js"></script>
+  <script>
+	// 调用接口渲染table
+	getCategories()
+  </script>
 </html>

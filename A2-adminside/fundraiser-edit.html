@@ -14,24 +14,21 @@
       <div class="main">
         <div class="side">
 			<a href="./fundraiser.html" class="active">Fundraiser</a>
+      		<a href="./category.html" >Category</a>
 		</div>
         <div class="content">
           <div class="h1">Edit</div>
 		  <div class="form">
 			<form id="newForm" action="http://localhost:3004/fundraiser" method="post">
 				<label for="FUNDRAISER_ID">FUNDRAISER_ID(id):</label>
-				<div class="input disabled"><input type="text" id="FUNDRAISER_ID" name="FUNDRAISER_ID" value="1" disabled required></div><br><br>
+				<div class="input disabled"><input type="text" id="FUNDRAISER_ID" name="FUNDRAISER_ID" value="" disabled required></div><br><br>
 
 				<label for="CAPTION">CAPTION(标题):</label>
 				<div class="input"><input type="text" id="CAPTION" name="CAPTION" required></div><br><br>
 
 				<label for="CATEGORY_ID">CATEGORY(类别):</label>
 				<div class="input">
-					<select type="number" id="CATEGORY_ID" name="CATEGORY_ID">
-						<option value="1">中国</option>
-						<option value="2">美国</option>
-						<option value="3">日本</option>
-					</select>
+					<select id="category" name="CATEGORY_ID"></select>
 				</div><br><br>
 
 				<label for="ORGANIZER">ORGANIZER(组织者):</label>
@@ -43,15 +40,15 @@
 				<label for="CITY">CITY(城市):</label>
 				<div class="input"><input type="text" id="CITY" name="TARGET_FUNDING"></div><br><br>
 
-
 				<label for="ACTIVE">ACTIVE(状态):</label>
-					<div class="radio"><input type="radio" name="radio" value="yes" checked/>进行中
-						<input type="radio" name="radio" value="no" />禁止</div>
+					<div class="radio">
+						<input type="radio" name="ACTIVE" value="1" checked/>进行中
+						<input type="radio" name="ACTIVE" value="0" />禁止</div>
 				<br><br>
 
 				<div class="description">
-					<label for="message">DESCRIPTION(描述):</label>
-					<textarea id="message" name="message" rows="4" required></textarea>
+					<label for="DESCRIPTION">DESCRIPTION(描述):</label>
+					<textarea placeholder="Please enter a description" id="DESCRIPTION" name="DESCRIPTION" rows="4" required></textarea>
 				</div>
 
 				<div class="submit"><button type="submit" class="button default">Save</button></div>
@@ -61,4 +58,14 @@
       </div>
     </div>
   </body>
+  <script src="./js/index.js"></script>
+  <script>
+	// 立即执行 Promise
+	(async function(){
+		// Acquisition sort
+		await getCategories(false)
+		// 获取详情
+		await getDetails()
+	})()
+  </script>
 </html>
