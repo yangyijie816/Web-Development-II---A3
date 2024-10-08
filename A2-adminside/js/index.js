@@ -47,7 +47,7 @@ function getFormData() {
     ORGANIZER: document.getElementById('ORGANIZER').value,
     CAPTION: document.getElementById('CAPTION').value,
     TARGET_FUNDING: document.getElementById('TARGET_FUNDING').value,
-    CURRENT_FUNDING: document.getElementById('CURRENT_FUNDING').value,
+    // CURRENT_FUNDING: document.getElementById('CURRENT_FUNDING').value,
     CITY: document.getElementById('CITY').value,
     ACTIVE: 1,
     CATEGORY_ID: document.getElementById('category').value,
@@ -137,7 +137,7 @@ function backfillFormData(data) {
   }
   document.getElementById('ORGANIZER').value = data.ORGANIZER
   document.getElementById('TARGET_FUNDING').value = data.TARGET_FUNDING
-  document.getElementById('CURRENT_FUNDING').value = data.CURRENT_FUNDING
+  // document.getElementById('CURRENT_FUNDING').value = data.CURRENT_FUNDING
   document.getElementById('CITY').value = data.CITY
   const radios = document.getElementsByName('ACTIVE')
   for (const radio of radios) {
