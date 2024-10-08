@@ -104,6 +104,21 @@ function template(data, index) {
 	`
 }
 
+// 获取捐赠列表
+function getDonatesTemplate(data) {
+  let tem = ''
+  ;(data.donates || []).forEach((item, index) => {
+    return (tem += `
+              <div style="display:flex;flex-direction: column;border-bottom: 1px solid rgba(0,0,0,.063);margin-bottom: 16px">
+                <div style="margin:0;font-weight:700">${item.GIVER} - $ ${item.AMOUNT} AUD</div>
+                <div style="margin-top:8px;margin-bottom:8px;font-size:.75em">${item.formatted_date}</div>
+              </div>`)
+  })
+  if (data.donates.length === 0) {
+    tem = `<div style="width:100%;color:#999">No donations have been made</div>`
+  }
+  return tem
+}
 // Detail template
 function templateDetail(data) {
   return `
@@ -132,9 +147,41 @@ function templateDetail(data) {
             </div>
             <div style="padding: 16px"><div class="button" onclick='toDonate(${data.FUNDRAISER_ID})'>Donate</div></div>
           </div>
+          <div class="card" style="margin-top:32px;padding:16px;justify-content:start;width:100%">
+            <h2 style="margin-top:0">Recent Donations</h2>
+            <div style="width:100%;display:flex;flex-direction: column;">
+              ${getDonatesTemplate(data)}
+            </div>
+          </div>
         </div>
       </div>
 	`
+}
+
+// Donates form template
+function donatesFormTemplate() {
+  const local = JSON.parse(localStorage.getItem('details'))
+  return `
+    <div class="donate-left">
+          <h2>Donate to ${local.CAPTION}</h2>
+          <p>
+            <em>"What we do is not what we achieve, but what we do to help others."</em>
+          </p>
+          <p>
+            <em> --Winston Churchill</em>
+          </p>
+          <h4>Donation Amount:</h4>
+          <input type="number" min="0" id="AMOUNT" placeholder="Please enter a value of no less than 5 AUD" />
+          <h4>Name:</h4>
+          <input id="GIVER" placeholder="Name" />
+          <div><a href="#" class="button" onclick="submitMyDonate()">Submit my donation</a></div>
+        </div>
+        <div class="donate-right">
+          <div class="img"><img src="./image/img${local.FUNDRAISER_ID}.png" alt="" /></div>
+          <h4>About the Organizer:</h4>
+          <p>${local.ORGANIZER}, ${local.CITY}</p>
+        </div>
+  `
 }
 
 // Selector
@@ -152,11 +199,14 @@ function getFundraisers() {
 }
 
 // Get details
-function getDetails(id) {
+function getDetails(id, isRender = true) {
   fetch('http://localhost:3000/fundraiser/' + id)
     .then(response => response.json())
     .then(res => {
-      document.getElementById('B').insertAdjacentHTML('beforeend', templateDetail(res))
+      localStorage.setItem('details', JSON.stringify(res))
+      if (isRender) {
+        document.getElementById('B').insertAdjacentHTML('beforeend', templateDetail(res))
+      }
     })
 }
 
@@ -197,6 +247,39 @@ function setWelcome() {
       welcomeSection.classList.add('fade-out')
     } else {
       welcomeSection.classList.remove('fade-out')
+    }
+  })
+}
+
+function getFormData() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const local = JSON.parse(localStorage.getItem('details'))
+  const formData = {
+    FUNDRAISER_ID: urlParams.get('id'),
+    AMOUNT: document.getElementById('AMOUNT').value,
+    GIVER: document.getElementById('GIVER').value,
+    Name: local.ORGANIZER,
+  }
+
+  return formData
+}
+
+function submitMyDonate() {
+  const data = getFormData()
+  console.log(data)
+  if (Number(data.AMOUNT) < 5) return alert('The minimum donation amount is AUD 5')
+  fetch(`http://localhost:3000/donation`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  }).then(res => {
+    if (res.status === 200) {
+      alert('Thank you for your donation to ' + data.Name)
+      setTimeout(() => {
+        window.location.replace('./details.html?id=' + data.FUNDRAISER_ID)
+      }, 200)
     }
   })
 }
