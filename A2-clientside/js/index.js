@@ -20,6 +20,10 @@ function clearCheckboxes() {
 function toDetails(id) {
   window.location.href = './details.html?id=' + id
 }
+// 跳转Donate页面
+function toDonate(id) {
+  window.location.href = './donate.html?id=' + id
+}
 
 function text(index) {
   const textareaText = [
@@ -126,7 +130,7 @@ function templateDetail(data) {
               <div>Campaign created by RiseTogether Charities</div>
               <div>Campaign funds will be received by RiseTogether Charities</div>
             </div>
-            <div style="padding: 16px"><div class="button" onclick='alert("This feature is under contruction")'>Donate</div></div>
+            <div style="padding: 16px"><div class="button" onclick='toDonate(${data.FUNDRAISER_ID})'>Donate</div></div>
           </div>
         </div>
       </div>
