@@ -14,7 +14,7 @@
         <div class="logo"><a href="./index.html">RiseTogether</a></div>
         <div class="menus">
           <ul id="path">
-            <li><a href="#" class="active">Home</a></li>
+            <li><a href="./index.html">Home</a></li>
             <li><a href="./search.html">Crowdfunding</a></li>
           </ul>
         </div>
@@ -33,7 +33,17 @@
     </div>
     <!-- list -->
     <div class="list">
-      <ul class="widthCenter listStyle" id="A"></ul>
+      <div class="widthCenter donate" id="Donate"></div>
+    </div>
+    <div class="b-card">
+      <div class="b-card-item widthCenter">
+        <h1>RiseTogether</h1>
+        <h2 class="">The place where help and hope go hand in hand.</h2>
+        <div class="b-card-item-btn">
+          <div class="button">Start a RiseTogether</div>
+          <div class="button">Support RiseTogether</div>
+        </div>
+      </div>
     </div>
     <!-- footer -->
     <div class="footer">
@@ -72,10 +82,15 @@
     </div>
   </body>
   <script src="./js/index.js"></script>
-  <!-- <script>
-    // Set the greeting roll gradient
-    setWelcome()
-    // Get fundraising list
-    getFundraisers()
-  </script> -->
+  <script>
+    ;(async () => {
+      // Get the current route parameters
+      const urlParams = new URLSearchParams(window.location.search)
+      // Get details by id
+      await getDetails(urlParams.get('id'), false)
+      // 渲染模板
+      const tem = donatesFormTemplate()
+      document.getElementById('Donate').insertAdjacentHTML('beforeend', tem)
+    })()
+  </script>
 </html>
