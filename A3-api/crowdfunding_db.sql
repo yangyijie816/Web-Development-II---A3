@@ -69,7 +69,7 @@ CREATE TABLE `fundraiser` (
 
 LOCK TABLES `fundraiser` WRITE;
 /*!40000 ALTER TABLE `fundraiser` DISABLE KEYS */;
-INSERT INTO `fundraiser` VALUES (1,'Alice','2024 Hurricane Relief Fund',5000.00,1500.00,'New York',1,1),(2,'Bob','RiseTogether Charities General Fund',3000.00,1200.00,'Los Angeles',1,2),(3,'Charlie','KEEP Aliyah Home',2000.00,500.00,'San Francisco',1,3),(4,'David','Supporting Our NC Neighbors Affected by Helene',4000.00,2500.00,'Chicago',1,1),(5,'Eve','Restore and Rebuild the Frazier Family',6000.00,3000.00,'Miami',0,2);
+INSERT INTO `fundraiser` VALUES (1,'Alice','2024 Hurricane Relief Fund',5000.00,1500.00,'New York',1,1),(2,'Bob','RiseTogether Charities General Fund',3090.00,1200.00,'Los Angeles',1,2),(3,'Charlie','KEEP Aliyah Home',2000.00,500.00,'San Francisco',1,3),(4,'David','Supporting Our NC Neighbors Affected by Helene',4000.00,2500.00,'Chicago',1,1),(5,'Eve','Restore and Rebuild the Frazier Family',6000.00,3090.00,'Miami',0,2);
 /*!40000 ALTER TABLE `fundraiser` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
