@@ -87,19 +87,19 @@ function showNoData(isShow = true) {
 }
 
 // 创建类别table渲染模板
-function CreateCategoriesTemplate(data) {
+function CreateCategoriesTemplate(data, index) {
   return `
 	<tr>
-		<td>${data.CATEGORY_ID}</td>
+		<td>${index + 1}</td>
 		<td>${data.NAME}</td>
 	</tr>
   `
 }
 //  创建筹款活动table渲染模板
-function CreateFundraisersTemplate(data) {
+function CreateFundraisersTemplate(data, index) {
   return `
 	<tr>
-		<td>${data.FUNDRAISER_ID}</td>
+		<td>${index + 1}</td>
 		<td>${data.CAPTION}</td>
 		<td>${data.ORGANIZER}</td>
 		<td>${data.TARGET_FUNDING}</td>
@@ -159,7 +159,7 @@ function getCategories(isTable = true) {
         } else {
           showNoData(false)
         }
-        res.forEach(item => document.getElementById('Table').insertAdjacentHTML('beforeend', CreateCategoriesTemplate(item)))
+        res.forEach((item, index) => document.getElementById('Table').insertAdjacentHTML('beforeend', CreateCategoriesTemplate(item, index)))
       } else {
         res.forEach(item => document.getElementById('category').insertAdjacentHTML('beforeend', templateOption(item)))
       }

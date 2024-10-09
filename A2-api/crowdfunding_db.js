@@ -29,7 +29,7 @@ connection.connect(err => {
 // Get a list of fundraisers
 app.get('/fundraisers', (req, res) => {
   const query = `
-        SELECT f.FUNDRAISER_ID, f.ORGANIZER, f.CAPTION,f.ACTIVE, f.TARGET_FUNDING, f.CURRENT_FUNDING, f.CITY, c.NAME AS CATEGORY_NAME
+        SELECT f.*, c.NAME AS CATEGORY_NAME
         FROM FUNDRAISER f
         JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
         WHERE f.ACTIVE = 1
@@ -105,15 +105,10 @@ app.get('/fundraiser/:id', (req, res) => {
     const data = results[0]
     //查询关联表所有捐赠人信息
     const donateQuery = `SELECT *, DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS formatted_date FROM DONATION WHERE FUNDRAISER_ID = ? ORDER BY DATE DESC;`
-    const amountTotalQuery = `SELECT SUM(AMOUNT) AS total_donation FROM DONATION WHERE FUNDRAISER_ID = ?`
     connection.query(donateQuery, [data.FUNDRAISER_ID], (error, donateResults) => {
       if (error) return res.status(500).json({ message: error.message })
       data.donates = donateResults
-      // data.CURRENT_FUNDING = totalDonation
-      connection.query(amountTotalQuery, [data.FUNDRAISER_ID], (e, [amountTotal]) => {
-        data.CURRENT_FUNDING = amountTotal.total_donation
-        res.json(data)
-      })
+      res.json(data)
     })
   })
 })
@@ -146,15 +141,21 @@ app.put('/fundraiser/:id', async (req, res) => {
 // 添加新的捐赠信息
 app.post('/donation', (req, res) => {
   const { AMOUNT, GIVER, FUNDRAISER_ID } = req.body
-  console.log(AMOUNT, GIVER, FUNDRAISER_ID)
   if (AMOUNT === null) return res.status(400).json({ message: 'The amount is required' })
   if (GIVER === null) return res.status(400).json({ message: 'The giver is required' })
   if (FUNDRAISER_ID === null) return res.status(400).json({ message: 'The FUNDRAISER ID is required' })
   const date = new Date()
   const query = 'INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES (?, ?, ?, ?)'
-  connection.query(query, [date, Number(AMOUNT), GIVER, Number(FUNDRAISER_ID)], (err, results) => {
+  connection.query(query, [date, Number(AMOUNT), GIVER, Number(FUNDRAISER_ID)], async (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
-    res.status(200).json({ message: '添加成功' })
+    try {
+      // 更新筹款人筹集当前资金
+      const sql = 'UPDATE fundraiser SET CURRENT_FUNDING = CURRENT_FUNDING + ? WHERE FUNDRAISER_ID = ?'
+      await connection.execute(sql, [AMOUNT, FUNDRAISER_ID])
+      res.status(200).json({ message: '添加成功' })
+    } catch (error) {
+      res.status(500).json({ message: error.message })
+    }
   })
 })
 
