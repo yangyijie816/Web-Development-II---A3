@@ -144,7 +144,7 @@ function templateOption(data) {
 
 // Get home page list
 function getFundraisers() {
-  fetch('http://localhost:3000/fundraisers')
+  fetch('http://localhost:3090/fundraisers')
     .then(response => response.json())
     .then(res => {
       res.forEach((element, index) => document.getElementById('A').insertAdjacentHTML('beforeend', template(element, index)))
@@ -153,7 +153,7 @@ function getFundraisers() {
 
 // Get details
 function getDetails(id, isRender = true) {
-  fetch('http://localhost:3000/fundraiser/' + id)
+  fetch('http://localhost:3090/fundraiser/' + id)
     .then(response => response.json())
     .then(res => {
       localStorage.setItem('details', JSON.stringify(res))
@@ -165,7 +165,7 @@ function getDetails(id, isRender = true) {
 
 // Get all categories
 function getCategories() {
-  fetch('http://localhost:3000/categories')
+  fetch('http://localhost:3090/categories')
     .then(response => response.json())
     .then(res => {
       res.forEach(item => document.getElementById('E').insertAdjacentHTML('beforeend', templateOption(item)))
@@ -175,7 +175,7 @@ function getCategories() {
 // Get search list
 function getSearch(params) {
   const paramsUrl = new URLSearchParams(params)
-  fetch(`http://localhost:3000/search?${paramsUrl}`)
+  fetch(`http://localhost:3090/search?${paramsUrl}`)
     .then(response => response.json())
     .then(res => {
       document.getElementById('F').innerHTML = ''
@@ -224,7 +224,7 @@ function submitMyDonate() {
   const data = getFormData()
   console.log(data)
   if (Number(data.AMOUNT) < 5) return alert('The minimum donation amount is AUD 5')
-  fetch(`http://localhost:3000/donation`, {
+  fetch(`http://localhost:3090/donation`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
