@@ -5,6 +5,7 @@ function search() {
   const city = document.getElementById('D').value
   const categoryId = document.getElementById('E').value
   // Inquire
+  if (!organizer && !city && !categoryId) return alert('Enter at least one condition')
   getSearch({ organizer, city, categoryId })
 }
 
@@ -28,8 +29,9 @@ function toDonate(id) {
 // Home list template
 function template(data, index) {
   return `
-		<li class="item" onclick="toDetails(${data.FUNDRAISER_ID})">
+		<div class="item" onclick="toDetails(${data.FUNDRAISER_ID})">
           <div class="card">
+            <span class="Fundraiser-ID">ID:&nbsp;${data.FUNDRAISER_ID}</span>
             <div class="image">
               <img class="img" src="./image/img${data.FUNDRAISER_ID}.png" alt="" />
               <div class="money">
@@ -37,10 +39,13 @@ function template(data, index) {
                 <p class="text-base">Target:&nbsp;$${data.TARGET_FUNDING}</p>
               </div>
             </div>
+            <div class="progressBar">
+              <div class="bar" style="width:${getProgress(data)}%"></div>
+            </div>
             <div class="info">
               <h4>${data.CAPTION}</h4>
               <div class="combination">
-			  	<p class="address">${data.ORGANIZER}</p>
+			  	<p class="address" onclick="toDetails(${data.FUNDRAISER_ID})">${data.ORGANIZER}</p>
 				<p>|</p>
                 <p class="type">${data.CATEGORY_NAME}</p>
 				<p>|</p>
@@ -53,8 +58,13 @@ function template(data, index) {
               </div>
             </div>
           </div>
-        </li>
+        </div>
 	`
+}
+
+function getProgress(data) {
+  const percentage = (Number(data.CURRENT_FUNDING) / Number(data.TARGET_FUNDING)) * 100
+  return Math.round(percentage * 100) / 100
 }
 
 // 获取捐赠列表
@@ -83,6 +93,7 @@ function templateDetail(data) {
             <p class="address">${data.CITY}</p>
             <p class="address">${data.CATEGORY_NAME}</p>
             <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
+            <p class="address">ID：${data.FUNDRAISER_ID}</p>
           </div>
           <div class="about">
             ${data.DESCRIPTION}
@@ -95,7 +106,7 @@ function templateDetail(data) {
               <p class="text-base">Target:&nbsp;$${data.TARGET_FUNDING}</p>
             </div>
             <div class="dinfo">
-              <div>Campaign created by RiseTogether Charities</div>
+              <div>This activity was created by <a href="#" onclick="toDetails(${data.FUNDRAISER_ID})">${data.ORGANIZER}</a></div>
               <div>Campaign funds will be received by RiseTogether Charities</div>
             </div>
             <div style="padding: 16px"><div class="button" onclick='toDonate(${data.FUNDRAISER_ID})'>Donate</div></div>
@@ -132,7 +143,7 @@ function donatesFormTemplate() {
         <div class="donate-right">
           <div class="img"><img src="./image/img${local.FUNDRAISER_ID}.png" alt="" /></div>
           <h4>About the Organizer:</h4>
-          <p>${local.ORGANIZER}, ${local.CITY}</p>
+          <p><a href="#" onclick="toDetails(${local.FUNDRAISER_ID})">${local.ORGANIZER}</a>, ${local.CITY}</p>
         </div>
   `
 }
@@ -180,7 +191,7 @@ function getSearch(params) {
     .then(res => {
       document.getElementById('F').innerHTML = ''
       if (res.length === 0) {
-        return (document.getElementById('F').innerHTML = `<div class="tips">No relevant information found</div>`)
+        return (document.getElementById('F').innerHTML = `<div></div><div class="tips red">No relevant information found</div><div></div>`)
       }
       res.forEach(item => document.getElementById('F').insertAdjacentHTML('beforeend', template(item)))
     })
@@ -238,4 +249,95 @@ function submitMyDonate() {
       }, 200)
     }
   })
+}
+
+// 设置轮播图
+function createCarousel(slidesSelector, dotsContainer, interval = 3000) {
+  let currentSlideIndex = 0
+  const slides = document.querySelectorAll(slidesSelector)
+  const dotsElement = document.querySelector(dotsContainer)
+  let autoPlayIntervalId = null
+
+  function initDots() {
+    for (let i = 0; i < slides.length; i++) {
+      let dot = document.createElement('span')
+      dot.classList.add('dot')
+      dot.onclick = () => currentSlide(i + 1)
+      dotsElement.appendChild(dot)
+    }
+  }
+
+  function showSlides(n) {
+    if (n >= slides.length) {
+      currentSlideIndex = 0
+    }
+    if (n < 0) {
+      currentSlideIndex = slides.length - 1
+    }
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = 'none'
+      dotsElement.children[i].classList.remove('active')
+    }
+
+    slides[currentSlideIndex].style.display = 'block'
+    dotsElement.children[currentSlideIndex].classList.add('active')
+  }
+
+  function plusSlides(n) {
+    showSlides((currentSlideIndex += n))
+  }
+
+  function currentSlide(n) {
+    showSlides((currentSlideIndex = n - 1))
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay() // 确保只有一个自动播放定时器
+    autoPlayIntervalId = setInterval(() => {
+      plusSlides(1)
+    }, interval)
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayIntervalId) {
+      clearInterval(autoPlayIntervalId)
+      autoPlayIntervalId = null
+    }
+  }
+
+  // 初始化圆点
+  initDots()
+
+  // 显示初始幻灯片
+  showSlides(currentSlideIndex)
+
+  // 启动自动播放
+  startAutoPlay()
+
+  // 返回一个对象，包含公共方法
+  return {
+    next: () => plusSlides(1),
+    prev: () => plusSlides(-1),
+    goTo: n => currentSlide(n),
+    stop: () => stopAutoPlay(),
+    restart: () => {
+      stopAutoPlay()
+      startAutoPlay()
+    },
+  }
+}
+
+// 设置轮播图
+function setBanner() {
+  const carousel = createCarousel('.slides img', '.dots')
+
+  // 左右切换按钮事件
+  document.querySelector('.prev').addEventListener('click', carousel.prev)
+  document.querySelector('.next').addEventListener('click', carousel.next)
+
+  // 鼠标悬停时停止自动播放，离开时恢复自动播放
+  const slidesContainer = document.querySelector('.carousel')
+  slidesContainer.addEventListener('mouseenter', carousel.stop)
+  slidesContainer.addEventListener('mouseleave', carousel.restart)
 }

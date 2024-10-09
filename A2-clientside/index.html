@@ -10,6 +10,7 @@
   <body>
     <!-- header -->
     <div class="center header-fixed">
+      <h6 class="center" style="display: flex; align-items: center; justify-content: center; height: 30px; font-size: 18px">Yoga And Sue 's FundClub</h6>
       <div class="header">
         <div class="logo"><a href="./index.html">RiseTogether</a></div>
         <div class="menus">
@@ -33,7 +34,17 @@
     </div>
     <!-- banner -->
     <div class="banner">
-      <img class="img" src="./image/banner.png" alt="" />
+      <div class="carousel">
+        <div class="slides">
+          <img src="./image/1.png" alt="Image 1" />
+          <img src="./image/2.jpg" alt="Image 2" />
+          <img src="./image/3.jpg" alt="Image 3" />
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="dots" style="text-align: center"></div>
+      </div>
+      <!-- <img class="img" src="./image/banner.png" alt="" /> -->
     </div>
     <!-- list -->
     <div class="list">
@@ -81,5 +92,7 @@
     setWelcome()
     // Get fundraising list
     getFundraisers()
+    // 确保在文档加载完成后初始化轮播图
+    document.addEventListener('DOMContentLoaded', setBanner)
   </script>
 </html>

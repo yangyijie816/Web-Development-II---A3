@@ -8,7 +8,8 @@
   </head>
 
   <body>
-    <div class="center">
+    <div class="center header-fixed">
+      <h6 class="center" style="display: flex; align-items: center; justify-content: center; height: 30px; font-size: 18px">Yoga And Sue 's FundClub</h6>
       <div class="header">
         <div class="logo"><a href="./index.html">RiseTogether</a></div>
         <div class="menus">
@@ -24,6 +25,8 @@
         </div>
       </div>
     </div>
+    <!-- Occupying height -->
+    <div class="placeholderDiv" style="height: 95px"></div>
     <div class="form">
       <div class="widthCenter">
         <div class="input-group">
@@ -48,7 +51,11 @@
       </div>
     </div>
     <div class="list search">
-      <ul class="widthCenter listStyle" id="F"></ul>
+      <div class="widthCenter listStyle" id="F">
+        <div></div>
+        <div class="tips">You haven't searched yet!</div>
+        <div></div>
+      </div>
     </div>
     <div class="footer">
       <div class="widthCenter">
@@ -90,6 +97,6 @@
     // Acquisition sort
     getCategories()
     // The fetch list is performed by default
-    search()
+    // search()
   </script>
 </html>
