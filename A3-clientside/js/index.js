@@ -236,7 +236,6 @@ function getFormData() {
 
 function submitMyDonate() {
   const data = getFormData()
-  console.log(data)
   if (Number(data.AMOUNT) < 5) return alert('The minimum donation amount is AUD 5')
   fetch(`https://24275293.it.scu.edu.au/donation`, {
     method: 'POST',
@@ -255,7 +254,7 @@ function submitMyDonate() {
 }
 
 // 设置轮播图
-function createCarousel(slidesSelector, dotsContainer, interval = 3000) {
+function createCarousel(slidesSelector, dotsContainer, interval = 2000) {
   let currentSlideIndex = 0
   const slides = document.querySelectorAll(slidesSelector)
   const dotsElement = document.querySelector(dotsContainer)
@@ -343,4 +342,20 @@ function setBanner() {
   const slidesContainer = document.querySelector('.carousel')
   slidesContainer.addEventListener('mouseenter', carousel.stop)
   slidesContainer.addEventListener('mouseleave', carousel.restart)
+}
+
+// 打开简介
+function openIntro(event) {
+  const modal = document.getElementById('Modal')
+  const masking = document.getElementById('Masking')
+  const body = document.body
+  modal.style.display = 'block'
+  body.style.height = '100vh'
+  body.style.overflow = 'hidden'
+
+  masking.addEventListener('click', e => {
+    modal.style.display = 'none'
+    body.style.height = 'auto'
+    body.style.overflow = ''
+  })
 }
