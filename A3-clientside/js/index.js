@@ -48,7 +48,7 @@ function template(data, index) {
             <div class="info">
               <h4>${data.CAPTION}</h4>
               <div class="combination">
-			  	<p class="address" onclick="toDetails(${data.FUNDRAISER_ID})">${data.ORGANIZER}</p>
+			  	<p class="address"><a href="#" onclick="toDetails(${data.FUNDRAISER_ID})">${data.ORGANIZER}</a></p>
 				<p>|</p>
                 <p class="type">${data.CATEGORY_NAME}</p>
 				<p>|</p>
