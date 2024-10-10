@@ -109,7 +109,7 @@ function templateDetail(data) {
               <p class="text-base">Target:&nbsp;$${data.TARGET_FUNDING}</p>
             </div>
             <div class="dinfo">
-              <div>This activity was created by <a href="#" onclick="toDetails(${data.FUNDRAISER_ID})">${data.ORGANIZER}</a></div>
+              <div>This activity was created by ${data.ORGANIZER}</div>
               <div>Campaign funds will be received by RiseTogether Charities</div>
             </div>
             <div style="padding: 16px"><div class="button" onclick='toDonate(${data.FUNDRAISER_ID})'>Donate</div></div>
