@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 // Default port number
-const port = 3090
+const port = 3091
 
 app.use(express.json())
 // Cross-domain prevention
@@ -12,9 +12,9 @@ app.use(cors())
 // Configuring database parameters
 const connection = mysql.createConnection({
   host: 'localhost', // Database ip
-  user: 'root', // Database user name
-  password: '123456', //'777486YYY', // Database password
-  database: 'crowdfunding_db', // Database Name
+  user: 'yyang68', // Database user name
+  password: 'Yifei030816@@', //'777486YYY', // Database password
+  database: 'yyang68_Web II_A3_yangyijie', // Database Name
 })
 
 // Linked database
@@ -30,8 +30,8 @@ connection.connect(err => {
 app.get('/fundraisers', (req, res) => {
   const query = `
         SELECT f.*, c.NAME AS CATEGORY_NAME
-        FROM FUNDRAISER f
-        JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+        FROM fundraiser f
+        JOIN category c ON f.CATEGORY_ID = c.CATEGORY_ID
         WHERE f.ACTIVE = 1
     `
   connection.query(query, (err, results) => {
@@ -52,8 +52,8 @@ app.get('/search', (req, res) => {
   const conditions = [organizerCondition, cityCondition, categoryCondition].filter(Boolean)
   const query = `
   SELECT f.*, c.NAME AS CATEGORY_NAME
-  FROM FUNDRAISER f
-  JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+  FROM fundraiser f
+  JOIN category c ON f.CATEGORY_ID = c.CATEGORY_ID
   ${conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : ''}
   `.trim()
 
@@ -72,7 +72,7 @@ app.get('/search', (req, res) => {
 
 // Get all categories
 app.get('/categories', (req, res) => {
-  connection.query('SELECT * FROM CATEGORY', (err, results) => {
+  connection.query('SELECT * FROM category', (err, results) => {
     if (err) {
       return res.status(500).json({ error: err.message })
     }
@@ -88,9 +88,9 @@ app.get('/fundraiser/:id', (req, res) => {
             f.*, 
             c.NAME AS CATEGORY_NAME
         FROM 
-            FUNDRAISER f
+            fundraiser f
         JOIN 
-            CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+            category c ON f.CATEGORY_ID = c.CATEGORY_ID
         WHERE 
             f.FUNDRAISER_ID = ?;
 
@@ -104,7 +104,7 @@ app.get('/fundraiser/:id', (req, res) => {
     }
     const data = results[0]
     //查询关联表所有捐赠人信息
-    const donateQuery = `SELECT *, DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS formatted_date FROM DONATION WHERE FUNDRAISER_ID = ? ORDER BY DATE DESC;`
+    const donateQuery = `SELECT *, DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS formatted_date FROM donation WHERE FUNDRAISER_ID = ? ORDER BY DATE DESC;`
     connection.query(donateQuery, [data.FUNDRAISER_ID], (error, donateResults) => {
       if (error) return res.status(500).json({ message: error.message })
       data.donates = donateResults
@@ -124,7 +124,7 @@ app.put('/fundraiser/:id', async (req, res) => {
     return res.status(400).json({ message: 'No update field is provided' })
   }
   const query = `
-      UPDATE FUNDRAISER
+      UPDATE fundraiser
       SET ${updates.join(', ')}
       WHERE FUNDRAISER_ID = ?
   `
@@ -145,7 +145,7 @@ app.post('/donation', (req, res) => {
   if (GIVER === null) return res.status(400).json({ message: 'The giver is required' })
   if (FUNDRAISER_ID === null) return res.status(400).json({ message: 'The FUNDRAISER ID is required' })
   const date = new Date()
-  const query = 'INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES (?, ?, ?, ?)'
+  const query = 'INSERT INTO donation (DATE, AMOUNT, GIVER, FUNDRAISER_ID) VALUES (?, ?, ?, ?)'
   connection.query(query, [date, Number(AMOUNT), GIVER, Number(FUNDRAISER_ID)], async (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
     try {
@@ -169,7 +169,7 @@ app.post('/fundraiser', (req, res) => {
   if (ACTIVE === null) return res.status(400).json({ message: 'lack ACTIVE parameter' })
   if (CATEGORY_ID === null) return res.status(400).json({ message: 'lack CATEGORY_ID parameter' })
   if (Number(TARGET_FUNDING) < 1) return res.status(400).json({ message: "TARGET_FUNDING Can't be less than 1" })
-  const query = 'INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION) VALUES (?, ?, ?, ?, ?, ?, ?)'
+  const query = 'INSERT INTO fundraiser (ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION) VALUES (?, ?, ?, ?, ?, ?, ?)'
   connection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION], (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
     res.status(200).json({ message: 'New success', fundraiserId: results.insertId })
@@ -179,14 +179,13 @@ app.post('/fundraiser', (req, res) => {
 //创建DELETE方法删除基于给定ID的现有筹款人。只有尚未收到捐款的筹款人才能被删除。否则，就违背了数据完整性的概念。
 app.delete('/fundraiser/:id', (req, res) => {
   const fundraiserId = req.params.id
-  const checkQuery = 'SELECT COUNT(*) AS donations FROM DONATION WHERE FUNDRAISER_ID = ?'
+  const checkQuery = 'SELECT COUNT(*) AS donations FROM donation WHERE FUNDRAISER_ID = ?'
   connection.query(checkQuery, [fundraiserId], (err, results) => {
-    console.log(results)
     if (err) return res.status(500).json({ error: err.message })
     if (results[0].donations > 0) {
       return res.status(400).json({ message: 'You cannot delete fundraiser with donations' })
     }
-    const deleteQuery = 'DELETE FROM FUNDRAISER WHERE FUNDRAISER_ID = ?'
+    const deleteQuery = 'DELETE FROM fundraiser WHERE FUNDRAISER_ID = ?'
     connection.query(deleteQuery, [fundraiserId], err => {
       if (err) return res.status(500).json({ error: err.message })
       res.status(200).json({ message: 'successfully delete' })

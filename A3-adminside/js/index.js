@@ -150,7 +150,7 @@ function backfillFormData(data) {
 
 // 调接口获取所有类别数据
 function getCategories(isTable = true) {
-  fetch('http://localhost:3090/categories')
+  fetch('https://24275293.it.scu.edu.au/categories')
     .then(response => response.json())
     .then(res => {
       if (isTable) {
@@ -169,7 +169,7 @@ function getCategories(isTable = true) {
 // 获取所有筹款活动数据
 function getFundraisers(params) {
   const paramsUrl = new URLSearchParams(params)
-  fetch(`http://localhost:3090/search?${paramsUrl}`)
+  fetch(`https://24275293.it.scu.edu.au/search?${paramsUrl}`)
     .then(response => response.json())
     .then(res => {
       document.getElementById('Table').innerHTML = ''
@@ -185,7 +185,7 @@ function getFundraisers(params) {
 // Get details
 function getDetails() {
   const urlParams = new URLSearchParams(window.location.search)
-  fetch('http://localhost:3090/fundraiser/' + urlParams.get('id'))
+  fetch('https://24275293.it.scu.edu.au/fundraiser/' + urlParams.get('id'))
     .then(response => response.json())
     .then(res => {
       // 回填表单数据
@@ -196,7 +196,7 @@ function getDetails() {
 // 更新筹款人信息
 function putFundraiserInfo(id, data) {
   delete data.id
-  fetch(`http://localhost:3090/fundraiser/${id}`, {
+  fetch(`https://24275293.it.scu.edu.au/fundraiser/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -217,7 +217,7 @@ function putFundraiserInfo(id, data) {
 
 // 新增筹款人
 function postFundraiserInfo(data) {
-  fetch(`http://localhost:3090/fundraiser`, {
+  fetch(`https://24275293.it.scu.edu.au/fundraiser`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -238,7 +238,7 @@ function postFundraiserInfo(data) {
 
 // delete Fundraiser
 function deleteFundraiser(id) {
-  fetch(`http://localhost:3090/fundraiser/${id}`, {
+  fetch(`https://24275293.it.scu.edu.au/fundraiser/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

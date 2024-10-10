@@ -14,7 +14,10 @@ function clearCheckboxes() {
   document.getElementById('C').value = ''
   document.getElementById('D').value = ''
   document.getElementById('E').value = ''
-  getSearch({})
+  document.getElementById('F').innerHTML = `<div></div>
+        <div class="tips">You haven't searched yet!</div>
+        <div></div>`
+  // getSearch({})
 }
 
 // Jump to details page
@@ -155,7 +158,7 @@ function templateOption(data) {
 
 // Get home page list
 function getFundraisers() {
-  fetch('http://localhost:3090/fundraisers')
+  fetch('https://24275293.it.scu.edu.au/fundraisers')
     .then(response => response.json())
     .then(res => {
       res.forEach((element, index) => document.getElementById('A').insertAdjacentHTML('beforeend', template(element, index)))
@@ -164,7 +167,7 @@ function getFundraisers() {
 
 // Get details
 function getDetails(id, isRender = true) {
-  fetch('http://localhost:3090/fundraiser/' + id)
+  fetch('https://24275293.it.scu.edu.au/fundraiser/' + id)
     .then(response => response.json())
     .then(res => {
       localStorage.setItem('details', JSON.stringify(res))
@@ -176,7 +179,7 @@ function getDetails(id, isRender = true) {
 
 // Get all categories
 function getCategories() {
-  fetch('http://localhost:3090/categories')
+  fetch('https://24275293.it.scu.edu.au/categories')
     .then(response => response.json())
     .then(res => {
       res.forEach(item => document.getElementById('E').insertAdjacentHTML('beforeend', templateOption(item)))
@@ -186,7 +189,7 @@ function getCategories() {
 // Get search list
 function getSearch(params) {
   const paramsUrl = new URLSearchParams(params)
-  fetch(`http://localhost:3090/search?${paramsUrl}`)
+  fetch(`https://24275293.it.scu.edu.au/search?${paramsUrl}`)
     .then(response => response.json())
     .then(res => {
       document.getElementById('F').innerHTML = ''
@@ -235,7 +238,7 @@ function submitMyDonate() {
   const data = getFormData()
   console.log(data)
   if (Number(data.AMOUNT) < 5) return alert('The minimum donation amount is AUD 5')
-  fetch(`http://localhost:3090/donation`, {
+  fetch(`https://24275293.it.scu.edu.au/donation`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
