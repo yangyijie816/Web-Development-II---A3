@@ -221,18 +221,11 @@ function setWelcome() {
   window.addEventListener('scroll', function () {
     //Get the element with the ID 'welcome'
     const welcomeMessage = document.getElementById('welcome')
-    const welcomeSection = document.querySelector('.welcome-section')
     //If the page scrolls more than 65 pixels, add the 'fade-out' class to the 'welcomeMessage' element
     if (window.scrollY > 65) {
       welcomeMessage.classList.add('fade-out')
     } else {
       welcomeMessage.classList.remove('fade-out')
-    }
-    //If the page scrolls more than 150 pixels, add the 'fade-out' class to the 'welcomeSection' element
-    if (window.scrollY > 150) {
-      welcomeSection.classList.add('fade-out')
-    } else {
-      welcomeSection.classList.remove('fade-out')
     }
   })
 }
