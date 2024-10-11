@@ -45,11 +45,26 @@ app.get('/fundraisers', (req, res) => {
 // Get a list of fundraisers according to the conditions:organizer, city, catagoryId
 app.get('/search', (req, res) => {
   const params = []
-  const organizerCondition = req.query.organizer ? `f.ORGANIZER = ?` : ''
-  const cityCondition = req.query.city ? `f.CITY = ?` : ''
-  const categoryCondition = req.query.categoryId ? `f.CATEGORY_ID = ?` : ''
+  const organizerCondition = req.query.organizer !== null && req.query.organizer !== undefined && req.query.organizer !== '' ? `f.ORGANIZER = ?` : ''
+  const cityCondition = req.query.city !== null && req.query.city !== undefined && req.query.city !== '' ? `f.CITY = ?` : ''
+  const categoryCondition = req.query.categoryId !== null && req.query.categoryId !== undefined && req.query.categoryId !== '' ? `f.CATEGORY_ID = ?` : ''
+  const captionCondition = req.query.caption !== null && req.query.caption !== undefined && req.query.caption !== '' ? `f.CAPTION = ?` : ''
+  const currentFundingCondition =
+    req.query.currentFunding !== null && req.query.currentFunding !== undefined && req.query.currentFunding !== '' ? `f.CURRENT_FUNDING = ?` : ''
+  const targetFinancingCondition =
+    req.query.targetFinancing !== null && req.query.targetFinancing !== undefined && req.query.targetFinancing !== '' ? `f.TARGET_FUNDING = ?` : ''
+  const selectedRadioCondition =
+    req.query.selectedRadio !== null && req.query.selectedRadio !== undefined && req.query.selectedRadio !== '' ? `f.ACTIVE = ?` : ''
   // Filter out parameters that are not passed in
-  const conditions = [organizerCondition, cityCondition, categoryCondition].filter(Boolean)
+  const conditions = [
+    organizerCondition,
+    cityCondition,
+    categoryCondition,
+    captionCondition,
+    currentFundingCondition,
+    targetFinancingCondition,
+    selectedRadioCondition,
+  ].filter(Boolean)
   const query = `
   SELECT f.*, c.NAME AS CATEGORY_NAME
   FROM fundraiser f
@@ -58,9 +73,13 @@ app.get('/search', (req, res) => {
   `.trim()
 
   // Add the corresponding parameters
-  if (req.query.organizer) params.push(req.query.organizer)
-  if (req.query.city) params.push(req.query.city)
-  if (req.query.categoryId) params.push(req.query.categoryId)
+  if (req.query.organizer !== null && req.query.organizer !== undefined && req.query.organizer !== '') params.push(req.query.organizer)
+  if (req.query.city !== null && req.query.city !== undefined && req.query.city !== '') params.push(req.query.city)
+  if (req.query.categoryId !== null && req.query.categoryId !== undefined && req.query.categoryId !== '') params.push(req.query.categoryId)
+  if (req.query.caption !== null && req.query.caption !== undefined && req.query.caption !== '') params.push(req.query.caption)
+  if (req.query.currentFunding !== null && req.query.currentFunding !== undefined && req.query.currentFunding !== '') params.push(req.query.currentFunding)
+  if (req.query.targetFinancing !== null && req.query.targetFinancing !== undefined && req.query.targetFinancing !== '') params.push(req.query.targetFinancing)
+  if (req.query.selectedRadio !== null && req.query.selectedRadio !== undefined && req.query.selectedRadio !== '') params.push(Number(req.query.selectedRadio))
 
   connection.query(query, params, (err, results) => {
     if (err) {

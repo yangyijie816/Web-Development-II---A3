@@ -28,25 +28,50 @@
     <div class="placeholderDiv" style="height: 125px"></div>
     <div class="form">
       <div class="widthCenter">
-        <div class="input-group">
-          <label class="label">Organizer: &nbsp;&nbsp;&nbsp;</label>
-          <input autocomplete="off" name="Email" id="C" class="input" />
-          <div></div>
+        <div class="search-form">
+          <div class="input-group">
+            <label class="label">Caption: &nbsp;&nbsp;&nbsp;</label>
+            <input autocomplete="off" name="CAPTION" id="CAPTION" class="input" />
+            <div></div>
+          </div>
+          <div class="input-group">
+            <label class="label">Organizer: &nbsp;&nbsp;&nbsp;</label>
+            <input autocomplete="off" name="ORGANIZER" id="ORGANIZER" class="input" />
+            <div></div>
+          </div>
+          <div class="input-group">
+            <label class="label">City: &nbsp;&nbsp;&nbsp;</label>
+            <input autocomplete="off" name="CITY" id="CITY" class="input" />
+            <div></div>
+          </div>
+          <div class="input-group">
+            <label class="label">Target financing: &nbsp;&nbsp;&nbsp;</label>
+            <input autocomplete="off" name="TARGET_FUNDING" id="TARGET_FUNDING" class="input" />
+            <div></div>
+          </div>
+          <div class="input-group">
+            <label class="label">Current funds: &nbsp;&nbsp;&nbsp;</label>
+            <input autocomplete="off" name="CURRENT_FUNDING" id="CURRENT_FUNDING" class="input" />
+            <div></div>
+          </div>
+          <div class="input-group">
+            <label class="label">Category: &nbsp;&nbsp;&nbsp;</label>
+            <select autocomplete="off" name="CATEGORY_ID" id="CATEGORY_ID" class="input">
+              <option value="" disabled style="height: 0" selected></option>
+            </select>
+            <div></div>
+          </div>
+          <div class="input-group radio-group">
+            <label class="label">Active: &nbsp;&nbsp;&nbsp;</label>
+            <div><input type="radio" name="ACTIVE" id="D" value="1" /> <span>Underway</span></div>
+            <div><input type="radio" name="ACTIVE" id="D" value="0" /> <span>Stop</span></div>
+            <div></div>
+          </div>
         </div>
-        <div class="input-group">
-          <label class="label">City: &nbsp;&nbsp;&nbsp;</label>
-          <input autocomplete="off" name="Email" id="D" class="input" />
-          <div></div>
+        <div class="search-buts">
+          <div class="button" onclick="search()">Search</div>
+          <div class="button" onclick="clearCheckboxes()">Clear</div>
         </div>
-        <div class="input-group">
-          <label class="label">Category: &nbsp;&nbsp;&nbsp;</label>
-          <select autocomplete="off" name="Email" id="E" class="input">
-            <option value="" disabled style="height: 0" selected></option>
-          </select>
-          <div></div>
-        </div>
-        <div class="button" onclick="search()">Search</div>
-        <div class="button" onclick="clearCheckboxes()">Clear</div>
       </div>
     </div>
     <div class="list search">

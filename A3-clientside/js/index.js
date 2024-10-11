@@ -1,19 +1,35 @@
 // Search
 function search() {
   // Get form form data
-  const organizer = document.getElementById('C').value
-  const city = document.getElementById('D').value
-  const categoryId = document.getElementById('E').value
+  const caption = document.getElementById('CAPTION').value
+  const organizer = document.getElementById('ORGANIZER').value
+  const currentFunding = document.getElementById('CURRENT_FUNDING').value
+  const targetFinancing = document.getElementById('TARGET_FUNDING').value
+  const city = document.getElementById('CITY').value
+  const categoryId = document.getElementById('CATEGORY_ID').value
+  const selectedRadio = document.querySelector('input[name="ACTIVE"]:checked')
+  console.log(selectedRadio)
   // Inquire
-  if (!organizer && !city && !categoryId) return alert('Enter at least one condition')
-  getSearch({ organizer, city, categoryId })
+  if (!caption && !organizer && !currentFunding && !targetFinancing && !city && !categoryId && !selectedRadio) return alert('Enter at least one condition')
+  const options = { caption, organizer, currentFunding, targetFinancing, city, categoryId }
+  if (selectedRadio) {
+    options.selectedRadio = selectedRadio.value
+  }
+  getSearch(options)
 }
 
 // clear form DATA
 function clearCheckboxes() {
-  document.getElementById('C').value = ''
-  document.getElementById('D').value = ''
-  document.getElementById('E').value = ''
+  document.getElementById('CAPTION').value = ''
+  document.getElementById('ORGANIZER').value = ''
+  document.getElementById('CURRENT_FUNDING').value = ''
+  document.getElementById('TARGET_FUNDING').value = ''
+  document.getElementById('CITY').value = ''
+  document.getElementById('CATEGORY_ID').value = ''
+  const selectedRadio = document.querySelector('input[name="ACTIVE"]:checked')
+  if (selectedRadio) {
+    selectedRadio.checked = false
+  }
   document.getElementById('F').innerHTML = `<div></div>
         <div class="tips">You haven't searched yet!</div>
         <div></div>`
@@ -182,7 +198,7 @@ function getCategories() {
   fetch('https://24275293.it.scu.edu.au/categories')
     .then(response => response.json())
     .then(res => {
-      res.forEach(item => document.getElementById('E').insertAdjacentHTML('beforeend', templateOption(item)))
+      res.forEach(item => document.getElementById('CATEGORY_ID').insertAdjacentHTML('beforeend', templateOption(item)))
     })
 }
 
