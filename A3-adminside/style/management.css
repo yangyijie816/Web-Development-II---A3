@@ -51,8 +51,7 @@
 }
 /* 内容布局样式 */
 .content {
-  flex: 1;
-  flex-shrink: 0;
+  width: calc(100% - 300px);
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -74,7 +73,9 @@
   justify-content: space-between;
 }
 .search .form {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 16px;
 }
 /* 按钮样式 */
@@ -138,9 +139,15 @@
 }
 
 .search .form-item {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.headline {
+  width: 140px;
+  text-align: right;
 }
 /* 设置input包裹的类样式 */
 .input {
@@ -197,6 +204,9 @@
   cursor: not-allowed;
 }
 
+.search .form-item .input {
+  width: calc(100% - 140px);
+}
 /* radio */
 .radio {
   display: inline-flex;

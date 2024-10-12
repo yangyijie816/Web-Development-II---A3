@@ -20,7 +20,6 @@
         </div>
         <div class="login">
           <div class="button" style="margin-right: 16px" onclick="openIntro()">Intro</div>
-          <div class="button">Start a RiseTogether</div>
         </div>
       </div>
     </div>
@@ -62,15 +61,17 @@
             <div></div>
           </div>
           <div class="input-group radio-group">
-            <label class="label">Active: &nbsp;&nbsp;&nbsp;</label>
-            <div><input type="radio" name="ACTIVE" id="D" value="1" /> <span>Underway</span></div>
-            <div><input type="radio" name="ACTIVE" id="D" value="0" /> <span>Stop</span></div>
-            <div></div>
+            <label class="label">Status: &nbsp;&nbsp;&nbsp;</label>
+            <div style="display: flex">
+              <div style="display: flex"><input type="radio" name="ACTIVE" id="D" value="1" /> <span class="white-space: nowrap;">Active</span></div>
+              <div style="display: flex"><input type="radio" name="ACTIVE" id="D" value="0" /> <span style="white-space: nowrap">Not Suspended</span></div>
+            </div>
           </div>
-        </div>
-        <div class="search-buts">
-          <div class="button" onclick="search()">Search</div>
-          <div class="button" onclick="clearCheckboxes()">Clear</div>
+          <div></div>
+          <div class="search-buts" style="justify-content: flex-end">
+            <div class="button" onclick="search()">Search</div>
+            <div class="button" onclick="clearCheckboxes()">Clear</div>
+          </div>
         </div>
       </div>
     </div>

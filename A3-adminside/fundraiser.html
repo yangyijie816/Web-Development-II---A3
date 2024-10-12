@@ -19,32 +19,51 @@
         <a href="./category.html">Category</a>
       </div>
       <div class="content">
-        <div class="h1">Fundraiser List</div>
+        <div class="h1" style="width:100%;display: flex;align-items: center;justify-content: space-between;">
+          <span>Fundraiser List</span>
+          <a href="./fundraiser-new.html" class="button primary">New</a>
+        </div>
         <div class="search">
           <div class="form">
             <div class="form-item">
-              <div class="headline">ORGANIZER</div>
-              <div class="input"><input id="organizer" /></div>
+              <div class="headline">Caption</div>
+              <div class="input"><input id="CAPTION" /></div>
             </div>
             <div class="form-item">
-              <div class="headline">CITY</div>
-              <div class="input"><input id="city" /></div>
+              <div class="headline">Organizer</div>
+              <div class="input"><input id="ORGANIZER" /></div>
+            </div>
+            <div class="form-item">
+              <div class="headline">City</div>
+              <div class="input"><input id="CITY" /></div>
+            </div>
+            <div class="form-item">
+              <div class="headline">Target financing</div>
+              <div class="input"><input autocomplete="off" name="TARGET_FUNDING" id="TARGET_FUNDING" /></div>
+            </div>
+            <div class="form-item">
+              <div class="headline">Current funds</div>
+              <div class="input"><input autocomplete="off" name="CURRENT_FUNDING" id="CURRENT_FUNDING" /></div>
             </div>
             <div class="form-item">
               <div class="headline">CATEGORY</div>
               <div class="input">
-                <select id="category">
+                <select id="CATEGORY_ID">
                   <option value="" style="height: 0px;" disabled selected></option>
                 </select>
               </div>
             </div>
             <div class="form-item">
-              <a href="#" onclick="searchTable()" class="button default">Search</a>
+              <div class="headline">Status</div>
+              <div style="display: flex; gap:32px">
+                <div style="display: flex;gap:16px"><input type="radio" name="ACTIVE" id="D" value="1" /> <span class="white-space: nowrap;">Active</span></div>
+                <div style="display: flex;gap:16px"><input type="radio" name="ACTIVE" id="D" value="0" /> <span style="white-space: nowrap">Not Suspended</span></div>
+              </div>
+            </div>
+            <div class="form-item" style="justify-content: flex-end;">
+                <a href="#" onclick="searchTable()" class="button default">Search</a>
               <a href="#" onclick="clearCheckboxes()" class="button default">Clear</a>
             </div>
-          </div>
-          <div class="action">
-            <div><a href="./fundraiser-new.html" class="button primary">New</a></div>
           </div>
         </div>
         <div class="table">
@@ -57,7 +76,7 @@
                 <th>TARGET_FUNDING</th>
                 <th>CURRENT_FUNDING</th>
                 <th>CITY</th>
-                <th>ACTIVE</th>
+                <th>Status</th>
                 <th>CATEGORY</th>
                 <th>Action</th>
               </tr>

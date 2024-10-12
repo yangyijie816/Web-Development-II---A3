@@ -32,7 +32,7 @@ app.get('/fundraisers', (req, res) => {
         SELECT f.*, c.NAME AS CATEGORY_NAME
         FROM fundraiser f
         JOIN category c ON f.CATEGORY_ID = c.CATEGORY_ID
-        WHERE f.ACTIVE = 1
+        ORDER BY FUNDRAISER_ID;
     `
   connection.query(query, (err, results) => {
     if (err) {

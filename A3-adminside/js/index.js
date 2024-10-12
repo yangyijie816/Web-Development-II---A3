@@ -24,18 +24,32 @@ function showMessage(type, message) {
 // Search
 function searchTable() {
   // Get form form data
-  const organizer = document.getElementById('organizer').value
-  const city = document.getElementById('city').value
-  const categoryId = document.getElementById('category').value
-  // Inquire
-  getFundraisers({ organizer, city, categoryId })
+  const caption = document.getElementById('CAPTION').value
+  const organizer = document.getElementById('ORGANIZER').value
+  const currentFunding = document.getElementById('CURRENT_FUNDING').value
+  const targetFinancing = document.getElementById('TARGET_FUNDING').value
+  const city = document.getElementById('CITY').value
+  const categoryId = document.getElementById('CATEGORY_ID').value
+  const selectedRadio = document.querySelector('input[name="ACTIVE"]:checked')
+  const options = { caption, organizer, currentFunding, targetFinancing, city, categoryId }
+  if (selectedRadio) {
+    options.selectedRadio = selectedRadio.value
+  }
+  getFundraisers(options)
 }
 
 // clear form DATA
 function clearCheckboxes() {
-  document.getElementById('organizer').value = ''
-  document.getElementById('city').value = ''
-  document.getElementById('category').value = ''
+  document.getElementById('CAPTION').value = ''
+  document.getElementById('ORGANIZER').value = ''
+  document.getElementById('CURRENT_FUNDING').value = ''
+  document.getElementById('TARGET_FUNDING').value = ''
+  document.getElementById('CITY').value = ''
+  document.getElementById('CATEGORY_ID').value = ''
+  const selectedRadio = document.querySelector('input[name="ACTIVE"]:checked')
+  if (selectedRadio) {
+    selectedRadio.checked = false
+  }
   getFundraisers({})
 }
 
@@ -105,7 +119,7 @@ function CreateFundraisersTemplate(data, index) {
 		<td>${data.TARGET_FUNDING}</td>
 		<td>${data.CURRENT_FUNDING}</td>
 		<td>${data.CITY}</td>
-		<td>${data.ACTIVE == 1 ? 'Underway' : 'Finished'}</td>
+		<td>${data.ACTIVE == 1 ? 'Active' : 'Not Suspended'}</td>
 		<td>${data.CATEGORY_NAME}</td>
 		<td>
 		<div>
@@ -161,7 +175,11 @@ function getCategories(isTable = true) {
         }
         res.forEach((item, index) => document.getElementById('Table').insertAdjacentHTML('beforeend', CreateCategoriesTemplate(item, index)))
       } else {
-        res.forEach(item => document.getElementById('category').insertAdjacentHTML('beforeend', templateOption(item)))
+        if (document.getElementById('CATEGORY_ID')) {
+          res.forEach(item => document.getElementById('CATEGORY_ID').insertAdjacentHTML('beforeend', templateOption(item)))
+        } else {
+          res.forEach(item => document.getElementById('category').insertAdjacentHTML('beforeend', templateOption(item)))
+        }
       }
     })
 }

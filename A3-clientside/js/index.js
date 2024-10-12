@@ -70,7 +70,7 @@ function template(data, index) {
 				<p>|</p>
                 <p class="address">${data.CITY}</p>
 				<p>|</p>
-                <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
+                <p class="type">${data.ACTIVE === 1 ? 'Active' : 'Not Suspended'}</p>
               </div>
               <div class="about">
                ${data.DESCRIPTION}
@@ -111,7 +111,7 @@ function templateDetail(data) {
           <div class="combination">
             <p class="address">${data.CITY}</p>
             <p class="address">${data.CATEGORY_NAME}</p>
-            <p class="type">${data.ACTIVE === 1 ? 'Underway' : 'Stop'}</p>
+            <p class="type">${data.ACTIVE === 1 ? 'Active' : 'Not Suspended'}</p>
             <p class="address">ID：${data.FUNDRAISER_ID}</p>
           </div>
           <div class="about">
