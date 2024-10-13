@@ -44,4 +44,9 @@ export class FundraiserService {
   getDetails(id: number): Observable<FundraiserType> {
     return this.http.get<FundraiserType>(this.apiUrl + 'fundraiser/' + id)
   }
+
+  // 新增捐款人
+  setDonation(data: any) {
+    return this.http.post<FundraiserType>(this.apiUrl + 'donation', data)
+  }
 }
