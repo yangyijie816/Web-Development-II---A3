@@ -15,14 +15,28 @@ export interface FundraiserType {
   DESCRIPTION: string // 描述
 }
 
+export interface CategoriesType {
+  CATEGORY_ID: number // 分类 ID
+  NAME: string // 标题
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class FundraiserService {
-  private apiUrl = 'https://24275293.it.scu.edu.au/fundraisers'
+  private apiUrl = 'https://24275293.it.scu.edu.au/'
   constructor(private http: HttpClient) {}
 
   getFundraiser(): Observable<FundraiserType[]> {
-    return this.http.get<FundraiserType[]>(this.apiUrl)
+    return this.http.get<FundraiserType[]>(this.apiUrl + 'fundraisers')
+  }
+
+  searchFundraiser(params: any): Observable<FundraiserType[]> {
+    return this.http.get<FundraiserType[]>(this.apiUrl + 'search', { params })
+  }
+
+  // 类别
+  getCategories(): Observable<CategoriesType[]> {
+    return this.http.get<CategoriesType[]>(this.apiUrl + 'categories')
   }
 }

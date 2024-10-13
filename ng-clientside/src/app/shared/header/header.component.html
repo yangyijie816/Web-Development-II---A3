@@ -1,7 +1,7 @@
 <div class="center header-fixed">
   <div class="title">Yoga And Sue 's FundClub</div>
   <div class="header">
-    <div class="logo"><a href="./index.html">RiseTogether</a></div>
+    <div class="logo"><div (click)="navTo('')">RiseTogether</div></div>
     <div class="menus">
       <ul id="path">
         <li (click)="navTo(item.path || '')" *ngFor="let item of routes" [class]="currentTitle === item.title ? 'active' : ''">{{ item.title }}</li>
@@ -12,7 +12,7 @@
     </div>
   </div>
 </div>
-<div class="placeholderDiv"></div>
+<div class="placeholderDiv" [style]="welcome ? '' : 'height:125px'"></div>
 <!-- 欢迎语 -->
 <div class="welcome" id="welcome" *ngIf="welcome" #welcomeRef>
   We're delighted to have you here. At RiseTogether, we connect passionate fundraisers with generous donors to support meaningful causes!

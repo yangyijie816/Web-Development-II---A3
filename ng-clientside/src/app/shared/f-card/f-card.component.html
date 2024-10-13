@@ -24,7 +24,7 @@
         <p>|</p>
         <p class="type">{{ data.ACTIVE === 1 ? 'Active' : 'Not Suspended' }}</p>
       </div>
-      <div class="about">{{ data.DESCRIPTION }}</div>
+      <div class="about" [innerHTML]="data.DESCRIPTION"></div>
     </div>
   </div>
 </div>
