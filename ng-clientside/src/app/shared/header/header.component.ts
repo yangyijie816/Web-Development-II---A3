@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // 初始化
   ngOnInit() {
-    this.routes = routes
+    this.routes = routes.filter(f => !f.data || f.data['isMenu'] !== false)
     this.currentTitle = this.route.routeConfig?.title
     if (this.banner) {
       this.autoplay()

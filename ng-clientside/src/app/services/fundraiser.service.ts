@@ -39,4 +39,9 @@ export class FundraiserService {
   getCategories(): Observable<CategoriesType[]> {
     return this.http.get<CategoriesType[]>(this.apiUrl + 'categories')
   }
+
+  // 详情
+  getDetails(id: number): Observable<FundraiserType> {
+    return this.http.get<FundraiserType>(this.apiUrl + 'fundraiser/' + id)
+  }
 }
