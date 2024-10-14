@@ -2,7 +2,7 @@
 
 Task 3 was used to demonstrate the complete skills of developing a dynamic website. In this task I improved the client site and developed the admin site while adding more relevant api's to meet the requirements.
 
-Welcome to the our Crowdfunding Platform Project! This dynamic web application is designed to facilitate fundraising activities by allowing users to make donations and administrators to manage fundraisers and categories. The platform includes a client-side website built with Angular for a rich user interface and an admin-side website for backend management. The backend is developed using NodeJS, ExpressJS, and MySQL, ensuring efficient data handling and retrieval. The platform is deployed on SCU cPanel for easy accessibility over the Internet.
+Welcome to the our Crowdfunding Platform Project! This dynamic web application is designed to facilitate fundraising activities by allowing users to make donations and administrators to manage fundraisers and categories. The platform includes a client-side website built with Angular for a rich user interface and an admin-side website for backend management. The backend is developed using NodeJS, ExpressJS, and MySQL, ensuring efficient data handling and retrieval. The platform is deployed on SCU cPanel for easy accessibility over the Internet .
 
 Features:
 Client-side
