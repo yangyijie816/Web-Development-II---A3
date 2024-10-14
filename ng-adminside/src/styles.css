@@ -80,7 +80,7 @@
 .search .form {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 32% 32% 32%;
   gap: 16px;
 }
 /* 按钮样式 */
