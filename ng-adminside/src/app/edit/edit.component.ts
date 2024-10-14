@@ -3,10 +3,11 @@ import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { FundraiserService } from '../services/fundraiser.service'
 import { ActivatedRoute, Route, Router } from '@angular/router'
+import { LayoutComponent } from '../shared/layout/layout.component'
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
 })

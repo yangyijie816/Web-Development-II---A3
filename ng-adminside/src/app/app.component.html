@@ -1,15 +1,1 @@
-<div>
-  <div class="header">
-    <a href="./fundraiser.html">Admin-Side</a>
-  </div>
-  <div class="main">
-    <div class="side">
-      <div (click)="navTo(item.path || '')" *ngFor="let item of routes" [class]="{ active: item.title === currentTitle }">
-        {{ item.title }}
-      </div>
-    </div>
-    <div class="content">
-      <router-outlet />
-    </div>
-  </div>
-</div>
+<router-outlet />

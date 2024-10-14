@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core'
 import { FundraiserService } from '../services/fundraiser.service'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
+import { LayoutComponent } from '../shared/layout/layout.component'
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

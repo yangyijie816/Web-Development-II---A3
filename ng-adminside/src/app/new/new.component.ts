@@ -3,11 +3,12 @@ import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { FundraiserService } from '../services/fundraiser.service'
 import { Route, Router } from '@angular/router'
+import { LayoutComponent } from '../shared/layout/layout.component'
 
 @Component({
   selector: 'app-new',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LayoutComponent],
   templateUrl: './new.component.html',
   styleUrl: './new.component.css',
 })

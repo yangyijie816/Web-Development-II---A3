@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { FundraiserService } from '../services/fundraiser.service'
+import { LayoutComponent } from '../shared/layout/layout.component'
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LayoutComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
 })

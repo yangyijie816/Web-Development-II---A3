@@ -10,19 +10,6 @@ import { CommonModule } from '@angular/common'
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+export class AppComponent {
   title = 'ng-adminside'
-  routes: Routes = []
-  currentTitle: Route['title'] = undefined
-
-  ngOnInit() {
-    this.routes = routes.filter(f => !f.data || f.data['isMenu'] !== false)
-    this.currentTitle = this.route.routeConfig?.title || 'Fundraisers'
-  }
-
-  // 跳转
-  navTo(url: string) {
-    this.router.navigate([url])
-  }
 }
