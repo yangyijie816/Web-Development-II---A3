@@ -5,7 +5,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* header样式 */
+/* header type */
 .header {
   background-color: #757575;
   height: 88px;
@@ -29,7 +29,7 @@
   width: 300px;
   background-color: #7a8185;
 }
-/* 左侧side默认样式 */
+/* Left side default style */
 .side div {
   width: 100%;
   height: 60px;
@@ -40,17 +40,17 @@
   font-size: 20px;
   text-decoration: none;
 }
-/* 左侧side鼠标悬浮样式 */
+/* Left side mouse hover style */
 .side div:hover {
   background-color: #434343;
   color: white;
 }
-/* 左侧side选中样式 */
+/* Left Side Selection Style */
 .active {
   background-color: #434343;
   color: white !important;
 }
-/* 内容布局样式 */
+/* Content Layout Styles */
 .content {
   width: calc(100% - 300px);
   padding: 32px;
@@ -83,7 +83,7 @@
   grid-template-columns: 32% 32% 32%;
   gap: 16px;
 }
-/* 按钮样式 */
+/* Button Style */
 .button {
   margin: 0;
   font-weight: 400;
@@ -110,34 +110,34 @@
   cursor: pointer;
   text-decoration: none;
 }
-/* 主题按钮样式 */
+/* Theme Button Styles */
 .primary {
   background-color: #18a058;
   color: #fff;
   border: 1px solid #18a058;
 }
-/* 主题按钮鼠标悬浮样式 */
+/* Theme Button Mouse Hover Style */
 .primary:hover {
   background-color: #36ad6a;
   border: 1px solid #18a058;
 }
-/* 删除按钮样式 */
+/* Delete button style */
 .delete {
   background-color: #d03050;
   border: 1px solid #d03050;
 }
-/* 删除按钮鼠标悬浮样式 */
+/* Remove button mouse hover style */
 .delete:hover {
   background-color: #de576d;
   border: 1px solid #de576d;
 }
-/* 默认按钮样式 */
+/* Default button style */
 .default {
   background-color: #0000;
   color: rgb(51, 54, 57);
   border: 1px solid rgb(224, 224, 230);
 }
-/* 默认按钮鼠标悬浮样式 */
+/* Default Button Mouse Hover Style */
 .default:hover {
   color: #18a058;
   border: 1px solid #18a058;
@@ -154,7 +154,7 @@
   width: 140px;
   text-align: right;
 }
-/* 设置input包裹的类样式 */
+/* Default Button Mouse Hover Style */
 .input {
   width: 240px;
   overflow: hidden;
@@ -180,7 +180,7 @@
   cursor: pointer;
 }
 
-/* 设置所有input样式 */
+/* Set all input styles */
 .input input {
   width: 100%;
   scrollbar-width: none;
@@ -200,7 +200,7 @@
   background-color: #0000;
   text-align: inherit;
 }
-/* disabled样式 */
+/* disabled style */
 .input input:disabled {
   cursor: not-allowed;
 }
@@ -238,7 +238,7 @@ table {
   border-color: rgba(239, 239, 245, 1);
   transition: background-color 0.3s var(--n-bezier), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* 设置表头样式 */
+/* Setting the header style */
 th {
   background-color: rgba(250, 250, 252, 1);
   font-weight: 500;
@@ -247,12 +247,12 @@ th {
   border-bottom: 1px solid rgba(239, 239, 245, 1);
   border-right: 1px solid rgba(239, 239, 245, 1);
 }
-/* 最后一个表头不加border */
+/* Last table header without border */
 tr th:last-child {
   border-right: 0px solid rgba(239, 239, 245, 1);
 }
 
-/* 设置表格样式 */
+/* Setting Table Styles */
 td {
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 12px;
@@ -263,12 +263,12 @@ td {
   border-bottom: 1px solid rgba(239, 239, 245, 1);
 }
 
-/* 最后一列不加 border */
+/* Last column not added border */
 td:last-child {
   border-right: 0px solid rgba(239, 239, 245, 1);
 }
 
-/* form表单  ">"号防止与fundraiserList中的"form"类名冲突*/
+/* The form form ‘>’ sign prevents conflicts with the ‘form’ class name in the fundraiserList.*/
 #newForm {
   width: 100%;
 }
@@ -309,7 +309,7 @@ td:last-child {
 .description {
   display: flex;
 }
-/* "没找到数据" 样式 */
+/* ‘No data found’ style. */
 .no-data {
   width: 100%;
   text-align: center;
@@ -318,12 +318,12 @@ td:last-child {
   color: rgba(194, 194, 194, 1);
 }
 
-/* 必填符号样式 */
+/* Required Symbol Style */
 .required {
   color: red;
   margin-left: 5px;
 }
-/* 设置textarea宽度 */
+/* Set textarea width */
 .content > .form textarea {
   display: inline-block;
   width: 1000px;
@@ -343,7 +343,7 @@ td:last-child {
   padding: 14px;
 }
 
-/* message提示 */
+/* message prompt */
 .message {
   position: fixed;
   top: 80px;

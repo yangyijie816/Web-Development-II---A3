@@ -122,7 +122,7 @@ app.get('/fundraiser/:id', (req, res) => {
       return res.status(404).json({ message: '查询数据不存在' })
     }
     const data = results[0]
-    // Query the associated table for all donors
+    //Query the associated table for all donors
     const donateQuery = `SELECT *, DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS formatted_date FROM donation WHERE FUNDRAISER_ID = ? ORDER BY DATE DESC;`
     connection.query(donateQuery, [data.FUNDRAISER_ID], (error, donateResults) => {
       if (error) return res.status(500).json({ message: error.message })
@@ -132,7 +132,7 @@ app.get('/fundraiser/:id', (req, res) => {
   })
 })
 
-// Create PUT method to update existing fundraisers based on given IDs
+// Create a PUT method to update existing fundraisers based on the given ID.
 app.put('/fundraiser/:id', async (req, res) => {
   const fundraiserId = req.params.id
   if (fundraiserId === undefined || fundraiserId === null) return res.status(400).json({ message: 'lack id parameter' })
@@ -178,7 +178,7 @@ app.post('/donation', (req, res) => {
   })
 })
 
-// Create a POST method to insert new fundraisers into the database
+// Create a POST method to insert the new fundraiser into the database.
 app.post('/fundraiser', (req, res) => {
   const { ORGANIZER, CAPTION, TARGET_FUNDING, CITY, ACTIVE, CATEGORY_ID, DESCRIPTION } = req.body
   if (ORGANIZER === null) return res.status(400).json({ message: 'lack ORGANIZER parameter' })

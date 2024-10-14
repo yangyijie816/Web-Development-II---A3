@@ -24,11 +24,11 @@ export class CrowdfundingComponent implements OnInit {
     categoryId: '',
     selectedRadio: '',
   }
-  // 分类
+  // categorisation
   categories: CategoriesType[] = []
   // 筹款活动
   fundraisers: FundraiserType[] = []
-  // 提示
+  // draw attention
   tips: string = `You haven't searched yet!`
   tipsClass: string = ``
 

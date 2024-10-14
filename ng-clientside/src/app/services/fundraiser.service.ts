@@ -3,21 +3,21 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
 export interface FundraiserType {
-  FUNDRAISER_ID: number // 筹款人 ID
-  ORGANIZER: string // 组织者名称
-  CAPTION: string // 标题
-  TARGET_FUNDING: number // 目标资金
-  CURRENT_FUNDING: number // 当前资金
-  CITY: string // 城市
-  ACTIVE: number // 是否激活
-  CATEGORY_ID: number // 类别 ID
-  CATEGORY_NAME: string // 类别名称
-  DESCRIPTION: string // 描述
+  FUNDRAISER_ID: number // fundraiser ID
+  ORGANIZER: string // Name of organiser
+  CAPTION: string // caption
+  TARGET_FUNDING: number // Target funds
+  CURRENT_FUNDING: number // current capital
+  CITY: string // municipalities
+  ACTIVE: number // Activated or not
+  CATEGORY_ID: number // form ID
+  CATEGORY_NAME: string // Category name
+  DESCRIPTION: string // descriptions
 }
 
 export interface CategoriesType {
-  CATEGORY_ID: number // 分类 ID
-  NAME: string // 标题
+  CATEGORY_ID: number // categorisation ID
+  NAME: string // caption
 }
 
 @Injectable({
@@ -35,17 +35,17 @@ export class FundraiserService {
     return this.http.get<FundraiserType[]>(this.apiUrl + 'search', { params })
   }
 
-  // 类别
+  // form
   getCategories(): Observable<CategoriesType[]> {
     return this.http.get<CategoriesType[]>(this.apiUrl + 'categories')
   }
 
-  // 详情
+  // particulars
   getDetails(id: number): Observable<FundraiserType> {
     return this.http.get<FundraiserType>(this.apiUrl + 'fundraiser/' + id)
   }
 
-  // 新增捐款人
+  // Additional donors
   setDonation(data: any) {
     return this.http.post<FundraiserType>(this.apiUrl + 'donation', data)
   }

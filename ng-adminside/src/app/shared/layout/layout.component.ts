@@ -20,7 +20,7 @@ export class LayoutComponent implements OnInit {
     this.currentTitle = window.location.pathname.split('/').pop()
   }
 
-  // 跳转
+  // skip
   navTo(url: string) {
     this.router.navigate([url])
   }
